@@ -1,0 +1,6 @@
+code-of-respect/
+├── index.html                # O código
+├── logo-code-of-respect.png  # A logo principal (aquela monumental da nav)
+├── logo-seta-sozinho.png     # O ícone do footer (rodapé)
+├── README.md                 # Descrição do projeto
+└── .gitignore                # Para ignorar arquivos desnecessários
