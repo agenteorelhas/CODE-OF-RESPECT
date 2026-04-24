@@ -3,14 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code of Respect | Apoio e Denúncia</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-</head><!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code of Respect | Apoio Anônimo</title>
     <link rel="stylesheet" href="Style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -19,95 +11,59 @@
 
     <div id="particles-js"></div>
 
-    <nav>
-        <div class="nav-content">
-            <img src="logo-code-of-respect.png" alt="Logo Monumental" class="logo-nav">
-            <div class="nav-links">
-                <span>Início</span>
-                <span>Sobre Assédio</span>
-                <button class="btn-nav">Fazer Denúncia</button>
+    <div class="app-container">
+        <nav>
+            <div class="nav-content">
+                <img src="logo-code-of-respect.png" alt="Logo" class="logo-nav">
+                <div class="nav-menu">
+                    <span>Início</span>
+                    <button class="btn-outline">Canais de Ajuda</button>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <main class="container">
-        <section class="chat-wrapper">
-            <div class="chat-container">
-                <div id="chat-window">
-                    <div class="message ai-msg">
-                        <p>Olá. Este é um ambiente seguro e anônimo. Como posso orientar você hoje?</p>
+        <main class="main-content">
+            <div class="grid-layout">
+                <section class="chat-wrapper">
+                    <div class="chat-card">
+                        <div id="chat-window">
+                            <div class="message ai-msg">
+                                Olá. Este é um canal seguro para denúncias e orientações. Como posso te ajudar agora?
+                            </div>
+                        </div>
+                        <div class="chat-footer">
+                            <input type="text" id="user-input" placeholder="Relate seu caso aqui..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendMessage()">Enviar</button>
+                        </div>
                     </div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="user-input" placeholder="Relate sua situação com segurança..." onkeypress="handleKeyPress(event)">
-                    <button onclick="sendMessage()">Enviar</button>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <aside class="info-sidebar">
-            <h3>Canais Oficiais</h3>
-            <p>Sua identidade será preservada nestes canais:</p>
-            <ul>
-                <li>Disque 100 (Direitos Humanos)</li>
-                <li>Ministério Público do Trabalho</li>
-                <li>Delegacia da Mulher</li>
-            </ul>
-            <div class="panic-area">
-                <p>Precisa sair rápido?</p>
-                <button class="btn-panic" onclick="panicExit()">Sair Agora (Esc)</button>
+                <aside class="sidebar-wrapper">
+                    <div class="sidebar-card">
+                        <h3>Canais Oficiais</h3>
+                        <p>Denuncie com segurança:</p>
+                        <ul>
+                            <li>Disque 100</li>
+                            <li>Ministério Público</li>
+                            <li>Delegacia da Mulher</li>
+                        </ul>
+                        <div class="panic-box">
+                            <button class="btn-panic" onclick="panicExit()">SAÍDA RÁPIDA (ESC)</button>
+                        </div>
+                    </div>
+                </aside>
             </div>
-        </aside>
-    </main>
+        </main>
 
-    <footer>
-        <div class="footer-content">
-            <img src="logo-seta-sozinho.png" alt="Seta" class="icon-footer">
-            <p>© 2024 Code of Respect - Projeto Acadêmico de Apoio à Vítima</p>
-        </div>
-    </footer>
+        <footer>
+            <div class="footer-content">
+                <img src="logo-seta-sozinho.png" alt="Seta" class="icon-footer">
+                <p>© 2024 Code of Respect - Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="JScript.js"></script>
-</body>
-</html>
-<body>
-
-    <div id="particles-js"></div>
-
-    <nav>
-        <img src="logo-code-of-respect.png" alt="Logo Monumental" class="logo-nav">
-        <div class="nav-title">Denúncia Anônima</div>
-    </nav>
-
-    <div class="container">
-        <section class="chat-container">
-            <div id="chat-window">
-                <div class="message ai-msg">Olá. Este é um ambiente seguro e anônimo. Como posso orientar você hoje?</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="user-input" placeholder="Relate sua situação com segurança..." onkeypress="handleKeyPress(event)">
-                <button onclick="sendMessage()">Enviar</button>
-            </div>
-        </section>
-
-        <aside class="info-sidebar">
-            <h3>Canais Oficiais</h3>
-            <ul>
-                <li>Disque 100</li>
-                <li>Ministério Público</li>
-                <li>Delegacia da Mulher</li>
-            </ul>
-            <button class="btn-panic" onclick="panicExit()">Sair Rapidamente (Esc)</button>
-        </aside>
-    </div>
-
-    <footer>
-        <img src="logo-seta-sozinho.png" alt="Seta" class="icon-footer">
-        <p>© 2024 Code of Respect - Projeto Acadêmico</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
