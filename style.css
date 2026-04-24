@@ -281,19 +281,27 @@ input, textarea {
 
 /* --- Seção do Rodapé (Footer) --- */
 footer {
-    width: 100%;             /* Garante que o rodapé ocupe a largura toda */
-    display: flex;           /* Ativa o modo flexível */
-    flex-direction: column;  /* Coloca os itens um abaixo do outro */
-    align-items: center;     /* CENTRALIZA HORIZONTALMENTE */
-    justify-content: center; /* Centraliza verticalmente se houver altura */
-    text-align: center;      /* Garante o alinhamento do texto interno */
-    padding: 60px 20px;      /* Espaçamento interno */
-    margin-top: 80px;        /* Espaço acima do rodapé */
+    width: 100vw;               /* Força a largura total da janela */
+    position: relative;         /* Garante o posicionamento correto */
+    left: 50%;                  /* Move para o meio */
+    right: 50%;                 /* Ajuste de centralização */
+    margin-left: -50vw;         /* Técnica para ignorar paddings de containers pais */
+    margin-right: -50vw;        /* Técnica para ignorar paddings de containers pais */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;        /* Centraliza o conteúdo horizontalmente */
+    justify-content: center;    /* Centraliza o conteúdo verticalmente */
+    text-align: center;         /* Garante que o texto dentro das tags fique no meio */
+    
+    padding: 60px 0;
+    margin-top: 80px;
     border-top: 1px solid var(--border);
     background-color: var(--bg-dark);
 }
 
 .footer-logo {
+    width: 100%;                /* Garante que a div da logo ocupe o centro */
     font-family: 'Cinzel', serif;
     color: var(--accent);
     font-size: 1.4rem;
@@ -304,6 +312,7 @@ footer {
 }
 
 footer p {
+    width: 100%;                /* Garante que o parágrafo ocupe o centro */
     color: var(--text-muted);
     font-size: 0.9rem;
     margin: 0;
