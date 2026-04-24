@@ -3,39 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Code of Respect | Fullstack Architecture</title>
+    <title>Code of Respect | Ética Corporativa</title>
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:;">
-    <meta name="referrer" content="no-referrer">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
+
     <div id="particles-js"></div>
-    <div class="grid-overlay" aria-hidden="true"></div>
 
-    <nav class="navbar" role="navigation">
-        <div class="nav-container">
-            <img src="logo-code-of-respect.png" alt="Code of Respect Logo" class="main-logo">
+    <div class="chat-widget" onclick="toggleChat()">
+        <i data-lucide="message-circle"></i>
+    </div>
+
+    <div class="chat-container" id="chatWindow">
+        <div style="background: var(--accent); color: var(--primary); padding: 15px; font-weight: 800; display: flex; justify-content: space-between;">
+            <span>ASSISTENTE ÉTICO</span>
+            <i data-lucide="x" style="cursor:pointer; width: 18px;" onclick="toggleChat()"></i>
         </div>
-    </nav>
-
-    <main class="hero">
-        <div class="content-box">
-            <h1 class="main-title">CODE OF <span class="gold-glow">RESPECT</span></h1>
-            <div class="divider"></div>
-            <p class="subtitle">CYBERSECURITY & HIGH-END DEVELOPMENT</p>
+        <div class="chat-messages" id="chatMessages">
+            <div class="msg bot-msg">Olá! Este é um canal seguro. Como posso ajudar você hoje?</div>
         </div>
-    </main>
-
-    <footer class="footer">
-        <img src="logo-seta-sozinho.png" alt="Seta Protocolo" class="footer-icon">
-        <p class="footer-copy">&copy; 2026 PROTOCOLO DE ELITE. ALL RIGHTS RESERVED.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+        <div style="padding: 10px; display: flex; gap: 8px; border-top: 1px solid var
