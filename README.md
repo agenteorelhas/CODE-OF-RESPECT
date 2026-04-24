@@ -10,3 +10,12 @@ Este projeto acadêmico visa fornecer um ambiente seguro e anônimo para vítima
 ## Segurança
 - Sanitização de inputs contra XSS.
 - Design responsivo e discreto.
+
+## Tecnologias
+- HTML5 / CSS3 (Variáveis nativas)
+- Particles.js (Efeitos visuais)
+- Segurança: Proteção contra XSS via sanitização de inputs.
+
+## Estrutura
+- `index.html`: Núcleo da interface.
+- `assets/`: Logos e imagens.
