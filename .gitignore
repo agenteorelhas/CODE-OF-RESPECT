@@ -1,1 +1,5 @@
 
+# Ignorar arquivos de sistema e pastas de ambiente
+.DS_Store
+node_modules/
+.env
