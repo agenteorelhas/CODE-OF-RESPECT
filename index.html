@@ -3,67 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code of Respect | Apoio Anônimo</title>
-    <link rel="stylesheet" href="Style.css">
+    <title>Code of Respect | Excellence in Tech</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div id="particles-js"></div>
 
-    <div class="app-container">
-        <nav>
-            <div class="nav-content">
-                <img src="logo-code-of-respect.png" alt="Logo" class="logo-nav">
-                <div class="nav-menu">
-                    <span>Início</span>
-                    <button class="btn-outline">Canais de Ajuda</button>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar">
+        <img src="logo-code-of-respect.png" alt="Code of Respect Monumental Logo" class="nav-logo">
+    </nav>
 
-        <main class="main-content">
-            <div class="grid-layout">
-                <section class="chat-wrapper">
-                    <div class="chat-card">
-                        <div id="chat-window">
-                            <div class="message ai-msg">
-                                Olá. Este é um canal seguro para denúncias e orientações. Como posso te ajudar agora?
-                            </div>
-                        </div>
-                        <div class="chat-footer">
-                            <input type="text" id="user-input" placeholder="Relate seu caso aqui..." onkeypress="handleKeyPress(event)">
-                            <button onclick="sendMessage()">Enviar</button>
-                        </div>
-                    </div>
-                </section>
+    <main class="hero-section">
+        <section class="content-container">
+            <h1 class="accent-text">Integridade & Performance</h1>
+            <p class="main-description">Desenvolvimento Fullstack com camadas de segurança impenetráveis.</p>
+        </section>
+    </main>
 
-                <aside class="sidebar-wrapper">
-                    <div class="sidebar-card">
-                        <h3>Canais Oficiais</h3>
-                        <p>Denuncie com segurança:</p>
-                        <ul>
-                            <li>Disque 100</li>
-                            <li>Ministério Público</li>
-                            <li>Delegacia da Mulher</li>
-                        </ul>
-                        <div class="panic-box">
-                            <button class="btn-panic" onclick="panicExit()">SAÍDA RÁPIDA (ESC)</button>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-        </main>
-
-        <footer>
-            <div class="footer-content">
-                <img src="logo-seta-sozinho.png" alt="Seta" class="icon-footer">
-                <p>© 2024 Code of Respect - Todos os direitos reservados.</p>
-            </div>
-        </footer>
-    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="logo-seta-sozinho.png" alt="Seta Ícone" class="footer-icon">
+            <p>&copy; 2026 Code of Respect. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="JScript.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
