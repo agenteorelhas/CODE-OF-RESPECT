@@ -11,117 +11,54 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-/* O segredo para o layout não quebrar */
-html, body {
-    height: 100%;
-    background-color: var(--bg-dark);
-    overflow: hidden; /* Evita scroll duplo com as partículas */
+body { 
+    background-color: var(--bg-dark); 
+    color: var(--text-main); 
+    line-height: 1.6; 
+    overflow-x: hidden;
 }
 
 #particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    position: fixed; 
+    width: 100%; 
+    height: 100%; 
+    top: 0; 
+    left: 0; 
+    z-index: -1;
 }
 
-.app-container {
-    position: relative;
-    z-index: 10;
+.navbar {
+    height: 100px;
     display: flex;
-    flex-direction: column;
-    height: 100vh; /* Ocupa 100% da altura da tela */
-}
-
-/* Header */
-nav {
-    background: var(--primary);
-    height: 80px;
-    display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 0 8%;
+    background: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.nav-content { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-.logo-nav { height: 45px; }
-.nav-menu { display: flex; align-items: center; gap: 20px; }
-.btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+.nav-logo { height: 80px; transition: transform 0.3s ease; }
+.nav-logo:hover { transform: scale(1.05); }
 
-/* Conteúdo Central */
-.main-content {
-    flex: 1; /* Faz esta parte crescer e ocupar o espaço entre header e footer */
+.hero-section {
+    min-height: 80vh;
     display: flex;
     align-items: center;
-    padding: 20px 8%;
-}
-
-.grid-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 30px;
-    width: 100%;
-    max-height: 80vh;
-}
-
-.chat-card {
-    background: var(--secondary);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    height: 600px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-}
-
-#chat-window {
-    flex: 1;
-    padding: 25px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.message { padding: 12px 16px; border-radius: 8px; max-width: 75%; line-height: 1.5; font-size: 0.95rem; }
-.ai-msg { background: var(--primary); border-left: 4px solid var(--accent); align-self: flex-start; }
-.user-msg { background: var(--accent); color: var(--primary); align-self: flex-end; font-weight: bold; }
-
-.chat-footer {
-    padding: 20px;
-    background: rgba(10, 25, 47, 0.9);
-    display: flex;
-    gap: 10px;
-    border-top: 1px solid var(--border);
-}
-
-input { flex: 1; background: var(--bg-dark); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 5px; }
-.chat-footer button { background: var(--accent); border: none; padding: 0 25px; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-.chat-footer button:hover { opacity: 0.8; }
-
-/* Lateral */
-.sidebar-card {
-    background: var(--secondary);
-    border: 1px solid var(--border);
-    padding: 25px;
-    border-radius: 12px;
-    height: fit-content;
-}
-
-.sidebar-card h3 { color: var(--accent); margin-bottom: 15px; }
-.sidebar-card ul { list-style: none; margin: 15px 0; color: var(--text-main); }
-.sidebar-card li { margin-bottom: 10px; font-size: 0.9rem; }
-
-.btn-panic { width: 100%; background: #721c24; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 15px; }
-
-/* Rodapé sempre na base */
-footer {
-    background: var(--primary);
-    padding: 25px;
+    justify-content: center;
     text-align: center;
-    border-top: 1px solid var(--border);
+    padding: 20px;
 }
 
-.footer-content { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.icon-footer { width: 25px; }
-footer p { font-size: 0.85rem; color: var(--text-main); opacity: 0.7; }
+.accent-text { color: var(--accent); font-size: 3rem; margin-bottom: 1rem; }
+
+.footer {
+    padding: 40px;
+    background: var(--primary);
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.footer-icon { width: 40px; margin-bottom: 15px; opacity: 0.8; }
