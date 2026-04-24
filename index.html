@@ -27,4 +27,99 @@
         <div class="chat-messages" id="chatMessages">
             <div class="msg bot-msg">Olá! Este é um canal seguro. Como posso ajudar você hoje?</div>
         </div>
-        <div style="padding: 10px; display: flex; gap: 8px; border-top: 1px solid var
+        <div style="padding: 10px; display: flex; gap: 8px; border-top: 1px solid var(--border);">
+            <input type="text" id="chatInput" placeholder="Sua dúvida..." style="margin:0; padding: 10px;">
+            <button class="btn-main" style="padding: 0 15px; border:none; margin:0" onclick="enviarChat()">></button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="security-banner">
+            <i data-lucide="shield-check" style="width:14px; vertical-align: middle;"></i> Ambiente Criptografado • Canal 100% Gratuito
+        </div>
+
+        <nav>
+            <div class="logo-gold">⚖ CODE OF RESPECT</div>
+            
+            <div class="nav-links">
+                <a href="javascript:void(0)" onclick="showView('home')">Início</a>
+                <a href="javascript:void(0)" onclick="showView('denuncia')">Denunciar</a>
+                <a href="javascript:void(0)" onclick="showView('quiz')">Auto Avaliação</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <main id="home" class="view active">
+                <section class="hero">
+                    <h1>Justiça, Ética e Respeito.</h1>
+                    <p>Combate ao Assédio Moral no Meio Corporativo com base no Respeito Mútuo.</p>
+                </section>
+
+                <div class="grid">
+                    <div class="card">
+                        <div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="gavel" aria-hidden="true" size="32" class="lucide lucide-gavel"><path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381"></path><path d="m16 16 6-6"></path><path d="m21.5 10.5-8-8"></path><path d="m8 8 6-6"></path><path d="m8.5 7.5 8 8"></path></svg></div>
+                        <h3>Denúncia Segura</h3>
+                        <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
+                        <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
+                        <h3>Auto Avaliação</h3>
+                        <p>Identifique se você está vivenciando uma situação de abuso.</p>
+                        <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box"><i data-lucide="landmark"></i></div>
+                        <h3>Órgãos Oficiais</h3>
+                        <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
+                        <button class="btn btn-accent" style="width:100%;">Canais Externos</button>
+                    </div>
+                </div>
+
+                <section class="quote-section">
+                    <div id="quote-container">
+                        <p id="quote-text" style="font-size: 1.4rem; font-style: italic;">"O assédio moral no trabalho é a exposição dos trabalhadores a situações humilhantes."</p>
+                        <p id="quote-author" style="color: var(--accent); font-weight: 800; margin-top: 20px;">— Margarida Barreto</p>
+                    </div>
+                </section>
+            </main>
+
+            <section id="denuncia" class="view">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: var(--accent); margin-bottom:20px; font-family: 'Cinzel', serif;">Relato Sigiloso</h2>
+                    <label>Iniciais do Envolvido:</label>
+                    <input type="text" id="iniciais" placeholder="Ex: J.K.">
+                    <label>Descrição detalhada:</label>
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos com tranquilidade..."></textarea>
+                    <button class="btn btn-main" style="width:100%;" onclick="enviarRelato()">Enviar Sigilosamente</button>
+                    
+                    <div id="feed-relatos" style="margin-top: 40px;">
+                        <h4 style="font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; margin-bottom: 10px;">Relatos Recentes (Anônimos)</h4>
+                        <div class="relato-card">
+                            <p>"Fui excluído das reuniões de planejamento sem nenhuma explicação técnica."</p>
+                            <small style="color: var(--accent); font-weight: bold; display: block; margin-top: 10px;">— Iniciais: A.B. • Postado em: 10/04/2026</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="quiz" class="view">
+                <div class="card" style="max-width: 550px; margin: 0 auto; text-align: center;">
+                    <h2 id="question-text" style="font-size: 1.3rem;">Você sofre críticas sistemáticas em público de forma humilhante?</h2>
+                    <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn btn-main" onclick="nextQuestion()">Sim, acontece</button>
+                        <button class="btn btn-accent" onclick="nextQuestion()">Não / Raramente</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div style="font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.2rem; letter-spacing: 2px;">CODE OF RESPECT</div>
+            <p style="color: var(--text-muted); margin-top: 10px;">© 2026 - Proteção e Sigilo Absoluto.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
