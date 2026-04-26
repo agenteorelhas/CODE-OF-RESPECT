@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code of Respect | Ética Corporativa</title>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;">
-    
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -20,9 +19,9 @@
         <nav>
             <div class="logo-gold">⚖ CODE OF RESPECT</div>
             <div class="nav-links">
-                <a href="javascript:void(0)" onclick="showView('home')">Início</a>
-                <a href="javascript:void(0)" onclick="showView('denuncia')">Denunciar</a>
-                <a href="javascript:void(0)" onclick="showView('quiz')">Auto Avaliação</a>
+                <a onclick="showView('home')">Início</a>
+                <a onclick="showView('denuncia')">Denunciar</a>
+                <a onclick="showView('quiz')">Auto Avaliação</a>
             </div>
         </nav>
 
@@ -33,24 +32,26 @@
                     <p>Combate ao Assédio Moral no Meio Corporativo.</p>
                 </section>
 
-                <div class="grid">
+                <div class="grid-container">
                     <div class="card">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
                         <h3>Denúncia Segura</h3>
                         <p>Relate de forma anônima e sigilosa. Protegemos você.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
+
                     <div class="card">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
                         <p>Identifique se está vivenciando uma situação de abuso.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
+
                     <div class="card">
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
-                        <h3>Órgãos Oficiais</h3>
+                        <h3>Canais Externos</h3>
                         <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
-                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Canais Externos</button>
+                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Acessar MPT</button>
                     </div>
                 </div>
 
@@ -63,8 +64,8 @@
             <section id="denuncia" class="view">
                 <div class="card form-box">
                     <h2>Relato Sigiloso</h2>
-                    <input type="text" id="iniciais" placeholder="Iniciais do envolvido (Ex: J.K.)">
-                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos com tranquilidade..."></textarea>
+                    <input type="text" id="iniciais" placeholder="Iniciais (Ex: J.K.)">
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos..."></textarea>
                     <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
                     <div id="feed-relatos"></div>
                 </div>
@@ -72,9 +73,11 @@
 
             <section id="quiz" class="view">
                 <div class="card quiz-box">
-                    <h2 id="question-text">Você sofre críticas sistemáticas em público de forma humilhante?</h2>
-                    <button class="btn btn-main" onclick="nextQuestion()">Sim, acontece</button>
-                    <button class="btn btn-accent" onclick="nextQuestion()">Não / Raramente</button>
+                    <h2 id="question-text">Você sofre críticas sistemáticas em público?</h2>
+                    <div class="quiz-btns">
+                        <button class="btn btn-main" onclick="nextQuestion()">Sim</button>
+                        <button class="btn btn-accent" onclick="nextQuestion()">Não</button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -83,12 +86,8 @@
     <div class="chat-widget" onclick="toggleChat()">
         <i data-lucide="message-circle"></i>
     </div>
-
     <div class="chat-container" id="chatWindow">
-        <div class="chat-header">
-            <span>ASSISTENTE ÉTICO</span>
-            <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer"></i>
-        </div>
+        <div class="chat-header"><span>ASSISTENTE</span><i data-lucide="x" onclick="toggleChat()"></i></div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-footer">
             <input type="text" id="chatInput" placeholder="Sua dúvida...">
