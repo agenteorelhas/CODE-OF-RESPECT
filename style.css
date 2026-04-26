@@ -4,31 +4,42 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; min-height: 100vh; }
 
-/* NEON BRILHANTE */
+/* FIX CRÍTICO: As partículas não podem interceptar cliques */
 #particles-js {
-    position: fixed; width: 100%; height: 100%; z-index: 1;
+    position: fixed; width: 100%; height: 100%; top: 0; left: 0;
+    z-index: 1; 
+    pointer-events: none; /* Isso permite que o clique passe através das partículas */
     filter: drop-shadow(0 0 15px var(--accent));
 }
 
-.main-content { position: relative; z-index: 10; }
+/* FIX CRÍTICO: O conteúdo deve estar acima do fundo */
+.main-content { 
+    position: relative; 
+    z-index: 10; 
+    width: 100%;
+}
 
 nav { 
     background: rgba(4, 9, 17, 0.95); height: 80px; display: flex; 
     align-items: center; padding: 0 5%; border-bottom: 1px solid var(--border);
-    position: sticky; top: 0;
+    position: sticky; top: 0; z-index: 1000;
 }
 
 .logo-gold { font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.3rem; font-weight: 800; }
 .nav-links { margin-left: auto; display: flex; gap: 20px; }
-.nav-links a { color: white; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+/* Transformei os links em botões reais para melhor resposta de clique */
+.nav-btn { 
+    background: none; border: none; color: white; font-weight: 700; 
+    font-size: 0.75rem; text-transform: uppercase; cursor: pointer; 
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 20; }
 .hero { text-align: center; margin-bottom: 50px; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; }
+.hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 10px; }
 
-/* GRID FIXA COM 3 COLUNAS */
 .grid-container { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
@@ -42,24 +53,19 @@ nav {
     display: flex; flex-direction: column; justify-content: space-between;
     transition: 0.3s;
 }
-.card:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(184, 150, 80, 0.3); }
 
 .icon-box { background: var(--accent); color: black; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
 
-.btn { padding: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase; border: none; margin-top: 15px; width: 100%; }
+.btn { 
+    padding: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase; 
+    border: none; margin-top: 15px; width: 100%; position: relative; z-index: 30;
+}
 .btn-main { background: var(--accent); color: black; }
 .btn-accent { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+.btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
 
-.view { display: none; }
+.view { display: none; width: 100%; }
 .view.active { display: block; }
 
-/* CHAT */
-.chat-widget { position: fixed; bottom: 30px; right: 30px; background: var(--accent); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; box-shadow: 0 0 15px var(--accent); }
+.chat-widget { position: fixed; bottom: 30px; right: 30px; background: var(--accent); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 0 15px var(--accent); }
 .chat-container { position: fixed; bottom: 100px; right: 30px; width: 300px; height: 400px; background: #040911; border: 1px solid var(--border); display: none; flex-direction: column; z-index: 1000; }
-.chat-header { background: var(--accent); color: black; padding: 15px; display: flex; justify-content: space-between; font-weight: bold; }
-.chat-messages { flex: 1; padding: 15px; overflow-y: auto; }
-.chat-footer { padding: 10px; display: flex; border-top: 1px solid var(--border); }
-
-input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid var(--border); color: #fff; margin-bottom: 10px; }
-
-.final-footer { padding: 40px; text-align: center; border-top: 1px solid var(--border); margin-top: 40px; }
