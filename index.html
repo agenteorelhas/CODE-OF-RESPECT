@@ -12,21 +12,21 @@
 <body>
     <div id="particles-js"></div>
 
-    <div class="chat-widget" onclick="toggleChat()" title="Assistente Ético">
+    <div class="chat-widget" onclick="toggleChat()">
         <i data-lucide="message-circle"></i>
     </div>
 
     <div class="chat-container" id="chatWindow">
         <div class="chat-header">
             <span>ASSISTENTE ÉTICO</span>
-            <i data-lucide="x" class="close-chat" onclick="toggleChat()"></i>
+            <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer"></i>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="msg bot-msg">Olá! Este é um canal seguro. Como posso ajudar você hoje?</div>
         </div>
-        <div class="chat-input-area">
+        <div class="chat-footer">
             <input type="text" id="chatInput" placeholder="Sua dúvida...">
-            <button class="btn-send" onclick="enviarChat()">></button>
+            <button onclick="enviarChat()">></button>
         </div>
     </div>
 
@@ -55,25 +55,25 @@
                     <div class="card">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
                         <h3>Denúncia Segura</h3>
-                        <p>Relate de forma 100% anônima. Protegemos você.</p>
+                        <p>Relate de forma anônima e sigilosa. Protegemos você.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
                     <div class="card">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
-                        <p>Identifique se você vive uma situação de abuso.</p>
+                        <p>Identifique se está vivenciando uma situação de abuso.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
                     <div class="card">
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
                         <h3>Órgãos Oficiais</h3>
-                        <p>Acesse o suporte direto do MPT.</p>
+                        <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
                         <button class="btn btn-accent">Canais Externos</button>
                     </div>
                 </div>
 
                 <section class="quote-section">
-                    <div id="quote-container" style="transition: opacity 0.6s;">
+                    <div id="quote-container">
                         <p id="quote-text">"O assédio moral no trabalho é a exposição dos trabalhadores a situações humilhantes."</p>
                         <p id="quote-author">— Margarida Barreto</p>
                     </div>
@@ -81,20 +81,19 @@
             </main>
 
             <section id="denuncia" class="view">
-                <div class="card denuncia-form">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
                     <h2>Relato Sigiloso</h2>
-                    <label for="iniciais">Iniciais do Envolvido:</label>
-                    <input type="text" id="iniciais" maxlength="5" placeholder="Ex: J.K.">
-                    <label for="relatoTexto">Descrição detalhada:</label>
-                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos..."></textarea>
+                    <input type="text" id="iniciais" placeholder="Iniciais do envolvido (Ex: J.K.)">
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos detalhadamente..."></textarea>
                     <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
-                    <div id="feed-relatos"></div> </div>
+                    <div id="feed-relatos" style="margin-top: 20px;"></div>
+                </div>
             </section>
 
             <section id="quiz" class="view">
-                <div class="card quiz-card">
+                <div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
                     <h2 id="question-text">Você sofre críticas sistemáticas em público de forma humilhante?</h2>
-                    <div class="quiz-btns">
+                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-direction: column;">
                         <button class="btn btn-main" onclick="nextQuestion()">Sim, acontece</button>
                         <button class="btn btn-accent" onclick="nextQuestion()">Não / Raramente</button>
                     </div>
