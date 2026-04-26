@@ -1,119 +1,86 @@
-// Garante a criação de ícones
+// 1. Inicializa Ícones
 lucide.createIcons();
 
-// Configuração Segura e VISÍVEL das Partículas (Visual Neon)
-function initParticles() {
-    if (document.getElementById('particles-js')) {
-        particlesJS("particles-js", {
-            "particles": {
-                // Aumentei o número de partículas para serem mais visíveis
-                "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#B89650" }, // Cor dourada selecionada (--accent)
-                "shape": { "type": "circle" },
-                // Aumentei a opacidade base
-                "opacity": { 
-                    "value": 0.8, 
-                    "random": true, 
-                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.4, "sync": false }
-                },
-                // Aumentei o tamanho para dar mais impacto visual
-                "size": { 
-                    "value": 3.5, 
-                    "random": true, 
-                    "anim": { "enable": true, "speed": 4, "size_min": 0.3, "sync": false }
-                },
-                // Aumentei a opacidade e a espessura das linhas para ficarem visíveis
-                "line_linked": { 
-                    "enable": true, 
-                    "distance": 140, 
-                    "color": "#B89650", 
-                    "opacity": 0.4, 
-                    "width": 1.2 
-                },
-                // Aumentei um pouco a velocidade para dar mais dinamismo
-                "move": { 
-                    "enable": true, 
-                    "speed": 2.5, 
-                    "direction": "none", 
-                    "random": true, 
-                    "straight": false, 
-                    "out_mode": "out", 
-                    "bounce": false,
-                    "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": { 
-                    "onhover": { "enable": true, "mode": "grab" }, 
-                    "onclick": { "enable": true, "mode": "push" }, 
-                    "resize": true 
-                },
-                "modes": {
-                    "grab": { "distance": 180, "line_linked": { "opacity": 0.8 } },
-                    "push": { "particles_nb": 4 }
-                }
-            },
-            "retina_detect": true
-        });
-        console.log("Protocolo de Partículas Neon: ATIVO e VISÍVEL");
-    }
-}
+// 2. Motor de Partículas NEON
+window.onload = function() {
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#B89650" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.9, "random": true },
+            "size": { "value": 3, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#B89650", "opacity": 0.5, "width": 1.5 },
+            "move": { "enable": true, "speed": 3 }
+        },
+        "interactivity": {
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } }
+        }
+    });
+};
 
-// Inicializa quando tudo estiver carregado
-window.addEventListener('load', initParticles);
-
-// Navegação entre abas (Views)
+// 3. Troca de Views (Navegação)
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const target = document.getElementById(viewId);
-    if(target) target.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if(target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 }
 
-// Chat Widget
-function toggleChat() {
-    const win = document.getElementById('chatWindow');
-    win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
-}
+// 4. Controle do Chat (Fix de Cliques)
+const chatWindow = document.getElementById('chatWindow');
+const chatBtn = document.getElementById('chatBtn');
+const closeChat = document.getElementById('closeChat');
 
-function enviarChat() {
+chatBtn.onclick = () => chatWindow.style.display = 'flex';
+closeChat.onclick = () => chatWindow.style.display = 'none';
+
+document.getElementById('sendChatBtn').onclick = function() {
     const input = document.getElementById('chatInput');
     const box = document.getElementById('chatMessages');
     if(!input.value.trim()) return;
-    box.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
+    box.innerHTML += `<div style="align-self:flex-end; background:var(--accent); color:black; padding:8px; border-radius:4px;">${input.value}</div>`;
     input.value = "";
     setTimeout(() => {
-        box.innerHTML += `<div class="msg bot-msg">Relato recebido pelo protocolo de ética. Sua identidade está segura.</div>`;
+        box.innerHTML += `<div style="align-self:flex-start; background:var(--secondary); padding:8px; border-radius:4px; border-left:3px solid var(--accent);">Protocolo de segurança iniciado.</div>`;
         box.scrollTop = box.scrollHeight;
-    }, 800);
-}
+    }, 600);
+};
 
-// Relato e Quiz
-function enviarRelato() {
-    const iniciais = document.getElementById('iniciais').value.trim();
-    const texto = document.getElementById('relatoTexto').value.trim();
-    if(!iniciais || !texto) return alert("Preencha todos os campos.");
-    
+// 5. Envio de Relato
+document.getElementById('btnEnviarRelato').onclick = function() {
+    const iniciais = document.getElementById('iniciais').value;
+    const texto = document.getElementById('relatoTexto').value;
+    if(!texto) return alert("Por favor, descreva o ocorrido.");
+
     const feed = document.getElementById('feed-relatos');
-    const card = document.createElement('div');
-    card.style.cssText = "background: rgba(184,150,80,0.1); padding: 15px; border-left: 3px solid var(--accent); margin-top:10px;";
-    card.innerHTML = `<p>"${texto}"</p><small style="color:var(--accent)">ID: ${iniciais.toUpperCase()} • ${new Date().toLocaleDateString()}</small>`;
-    feed.prepend(card);
-    
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.style.marginTop = "15px";
+    div.innerHTML = `<p>"${texto}"</p><small style="color:var(--accent)">Ref: ${iniciais || 'Anônimo'}</small>`;
+    feed.prepend(div);
+
     document.getElementById('iniciais').value = "";
     document.getElementById('relatoTexto').value = "";
-    alert("Protocolo registrado.");
-}
+    alert("Relato enviado com sucesso!");
+};
 
+// 6. Lógica do Quiz
 let step = 0;
-const questions = ["Sente-se isolado pela equipe?", "Isso afeta sua saúde mental?", "Recebe ordens humilhantes?"];
+const questions = [
+    "Você recebe metas impossíveis de serem atingidas?",
+    "É ignorado ou isolado pelos colegas propositalmente?",
+    "Sua saúde física ou mental foi afetada pelo trabalho?"
+];
+
 function nextQuestion() {
     const qText = document.getElementById('question-text');
     if(step < questions.length) {
         qText.innerText = questions[step];
         step++;
     } else {
-        document.getElementById('quiz').innerHTML = `<div class='card' style='text-align:center'><h2>Diagnóstico Concluído</h2><p style='margin:15px 0'>Recomendamos buscar apoio no canal oficial.</p></div>`;
+        document.getElementById('quiz').innerHTML = `<div class='card'><h2>Análise Concluída</h2><p>Recomendamos contatar o RH ou MPT.</p><button class='btn btn-main' onclick='location.reload()'>Reiniciar</button></div>`;
     }
 }
