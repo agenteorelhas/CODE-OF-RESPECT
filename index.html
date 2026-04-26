@@ -37,31 +37,42 @@
                     <div class="card">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
                         <h3>Denúncia Segura</h3>
-                        <p>Relate de forma anônima e sigilosa.</p>
+                        <p>Relate de forma anônima e sigilosa. Protegemos você.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
                     <div class="card">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
-                        <p>Identifique situações de abuso.</p>
+                        <p>Identifique se está vivenciando uma situação de abuso.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
+                    <div class="card">
+                        <div class="icon-box"><i data-lucide="landmark"></i></div>
+                        <h3>Órgãos Oficiais</h3>
+                        <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
+                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Canais Externos</button>
+                    </div>
                 </div>
+
+                <section class="quote-section">
+                    <p id="quote-text">"O assédio moral no trabalho é a exposição dos trabalhadores a situações humilhantes."</p>
+                    <p id="quote-author">— Margarida Barreto</p>
+                </section>
             </main>
 
             <section id="denuncia" class="view">
                 <div class="card form-box">
                     <h2>Relato Sigiloso</h2>
-                    <input type="text" id="iniciais" placeholder="Iniciais (Ex: J.K.)">
-                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos..."></textarea>
-                    <button class="btn btn-main" id="btnEnviarRelato">Enviar Sigilosamente</button>
+                    <input type="text" id="iniciais" placeholder="Iniciais do envolvido (Ex: J.K.)">
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos com tranquilidade..."></textarea>
+                    <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
                     <div id="feed-relatos"></div>
                 </div>
             </section>
 
             <section id="quiz" class="view">
                 <div class="card quiz-box">
-                    <h2 id="question-text">Você sofre críticas sistemáticas em público?</h2>
+                    <h2 id="question-text">Você sofre críticas sistemáticas em público de forma humilhante?</h2>
                     <button class="btn btn-main" onclick="nextQuestion()">Sim, acontece</button>
                     <button class="btn btn-accent" onclick="nextQuestion()">Não / Raramente</button>
                 </div>
@@ -69,19 +80,19 @@
         </div>
     </div>
 
-    <div class="chat-widget" id="chatBtn">
+    <div class="chat-widget" onclick="toggleChat()">
         <i data-lucide="message-circle"></i>
     </div>
 
     <div class="chat-container" id="chatWindow">
         <div class="chat-header">
             <span>ASSISTENTE ÉTICO</span>
-            <i data-lucide="x" id="closeChat" style="cursor:pointer"></i>
+            <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer"></i>
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-footer">
             <input type="text" id="chatInput" placeholder="Sua dúvida...">
-            <button id="sendChatBtn">></button>
+            <button onclick="enviarChat()">></button>
         </div>
     </div>
 
