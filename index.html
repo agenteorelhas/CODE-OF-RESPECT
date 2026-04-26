@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code of Respect | Ética Corporativa</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,9 +18,9 @@
         <nav>
             <div class="logo-gold">⚖ CODE OF RESPECT</div>
             <div class="nav-links">
-                <a onclick="showView('home')">Início</a>
-                <a onclick="showView('denuncia')">Denunciar</a>
-                <a onclick="showView('quiz')">Auto Avaliação</a>
+                <button class="nav-btn" onclick="showView('home')">Início</button>
+                <button class="nav-btn" onclick="showView('denuncia')">Denunciar</button>
+                <button class="nav-btn" onclick="showView('quiz')">Auto Avaliação</button>
             </div>
         </nav>
 
@@ -54,11 +53,6 @@
                         <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Acessar MPT</button>
                     </div>
                 </div>
-
-                <section class="quote-section">
-                    <p id="quote-text">"O assédio moral no trabalho é a exposição dos trabalhadores a situações humilhantes."</p>
-                    <p id="quote-author">— Margarida Barreto</p>
-                </section>
             </main>
 
             <section id="denuncia" class="view">
@@ -74,7 +68,7 @@
             <section id="quiz" class="view">
                 <div class="card quiz-box">
                     <h2 id="question-text">Você sofre críticas sistemáticas em público?</h2>
-                    <div class="quiz-btns">
+                    <div class="quiz-btns" style="display: flex; gap: 10px; margin-top: 20px;">
                         <button class="btn btn-main" onclick="nextQuestion()">Sim</button>
                         <button class="btn btn-accent" onclick="nextQuestion()">Não</button>
                     </div>
@@ -87,18 +81,13 @@
         <i data-lucide="message-circle"></i>
     </div>
     <div class="chat-container" id="chatWindow">
-        <div class="chat-header"><span>ASSISTENTE</span><i data-lucide="x" onclick="toggleChat()"></i></div>
+        <div class="chat-header"><span>ASSISTENTE</span><i data-lucide="x" onclick="toggleChat()" style="cursor:pointer"></i></div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-footer">
             <input type="text" id="chatInput" placeholder="Sua dúvida...">
             <button onclick="enviarChat()">></button>
         </div>
     </div>
-
-    <footer class="final-footer">
-        <div class="footer-logo">CODE OF RESPECT</div>
-        <p>© 2026 - Proteção e Sigilo Absoluto</p>
-    </footer>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
