@@ -6,11 +6,11 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
 
-/* Efeito Neon das Partículas */
+/* FIX NEON: Partículas Visíveis */
 #particles-js {
     position: fixed; width: 100%; height: 100%; top: 0; left: 0; 
     z-index: 1; pointer-events: none;
-    filter: drop-shadow(0 0 10px var(--accent));
+    filter: drop-shadow(0 0 12px var(--accent));
 }
 
 .main-content { position: relative; z-index: 5; }
@@ -21,34 +21,35 @@ nav {
     position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
 }
 
-.logo-gold { font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.3rem; font-weight: 800; }
+.logo-gold { font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; }
 .nav-links { margin-left: auto; display: flex; gap: 20px; }
 .nav-links a { text-decoration: none; color: white; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; }
 
 .container { max-width: 1100px; margin: 0 auto; padding: 3rem 5%; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; text-align: center; margin-bottom: 3rem; }
+.hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; text-align: center; margin-bottom: 3rem; text-shadow: 0 0 15px rgba(184, 150, 80, 0.3); }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.card { padding: 30px; background: var(--secondary); border: 1px solid var(--border); border-radius: 4px; transition: 0.3s; }
-.card:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(184, 150, 80, 0.2); }
+.card { padding: 30px; background: var(--secondary); border: 1px solid var(--border); border-radius: 4px; transition: 0.3s; display: flex; flex-direction: column; }
+.card:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(184, 150, 80, 0.25); }
 
-.btn { border: none; padding: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; width: 100%; margin-top: 10px; transition: 0.2s; position: relative; z-index: 10; }
+.icon-box { background: var(--accent); color: var(--primary); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border-radius: 2px; }
+
+.btn { border: none; padding: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; width: 100%; margin-top: auto; transition: 0.2s; }
 .btn-main { background: var(--accent); color: var(--primary); }
 .btn-accent { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-.btn:active { transform: scale(0.98); }
+.btn:hover { filter: brightness(1.2); }
 
 .view { display: none; }
 .view.active { display: block; animation: fadeIn 0.4s ease; }
-
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* Chat */
-.chat-widget { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); cursor: pointer; z-index: 9999; }
+.chat-widget { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); cursor: pointer; z-index: 9999; box-shadow: 0 0 15px var(--accent); }
 .chat-container { position: fixed; bottom: 100px; right: 30px; width: 300px; height: 400px; background: var(--primary); border: 1px solid var(--border); display: none; flex-direction: column; z-index: 10000; }
 .chat-header { background: var(--accent); color: var(--primary); padding: 15px; display: flex; justify-content: space-between; font-weight: 800; }
 .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.8rem; }
 .chat-footer { padding: 10px; display: flex; border-top: 1px solid var(--border); }
 
-input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid var(--border); color: #fff; margin-bottom: 10px; }
+input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid var(--border); color: #fff; margin-bottom: 10px; outline: none; }
 
-.final-footer { padding: 40px; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
+.final-footer { padding: 40px; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; background: var(--primary); }
