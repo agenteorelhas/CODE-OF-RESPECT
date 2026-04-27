@@ -4,9 +4,9 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // Permite que o GitHub Pages acesse este servidor
+app.use(cors()); 
 
-// O Render lerá a chave das 'Environment Variables'
+// A chave API será lida das variáveis de ambiente do Render
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/chat', async (req, res) => {
@@ -22,7 +22,7 @@ app.post('/chat', async (req, res) => {
         res.json({ text: response.text() });
     } catch (error) {
         console.error("Erro na API:", error);
-        res.status(500).json({ error: "Ocorreu um erro ao processar sua solicitação." });
+        res.status(500).json({ error: "Ocorreu um erro ao processar a tua solicitação." });
     }
 });
 
