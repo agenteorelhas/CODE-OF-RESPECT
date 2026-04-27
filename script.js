@@ -1,13 +1,14 @@
 const GEMINI_API_KEY = 'AIzaSyDAo7C9lmOy5D8JX-JkLIvLbRT8fHDovm8';
 
 document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
-    if(typeof particlesJS !== 'undefined') {
+    if (window.lucide) lucide.createIcons();
+    if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 50 },
+                "number": { "value": 40 },
                 "color": { "value": "#B89650" },
-                "line_linked": { "color": "#B89650", "opacity": 0.1 }
+                "opacity": { "value": 0.2 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#B89650", "opacity": 0.1 }
             }
         });
     }
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleChat() {
     const chat = document.getElementById('chatWindow');
-    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+    chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
 }
 
 function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
@@ -29,37 +30,37 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('Consultando diretrizes éticas...', 'bot-msg', loadingId);
+    appendMessage('Analisando conduta...', 'bot-msg', loadingId);
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+        // Usando a URL estável v1
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `VOCÊ É O GEM 'CODE OF RESPECT' (ASSISTENTE ÉTICO).
-                        INSTRUÇÕES:
-                        - Atue como um especialista em mediação de conflitos e ética corporativa.
-                        - Seu tom é acolhedor, empático, mas extremamente profissional e imparcial.
-                        - Ajude usuários a identificarem assédio moral e dê orientações práticas sobre canais de denúncia (MPT, RH, Ouvidorias).
-                        - Se o usuário estiver em crise, recomende ajuda profissional.
-                        - Seja direto e evite textos excessivamente longos a menos que solicitado.
-                        
-                        USUÁRIO PERGUNTA: ${userText}`
+                        text: `Aja como o GEM 'Code of Respect', assistente ético corporativo. 
+                        Use um tom profissional e acolhedor. Ajude com o seguinte: ${userText}`
                     }]
                 }]
             })
         });
 
         const data = await response.json();
-        const aiResponse = data.candidates[0].content.parts[0].text;
+        
+        if (!response.ok) throw new Error(data.error?.message || 'Erro na API');
 
+        const aiResponse = data.candidates[0].content.parts[0].text;
         document.getElementById(loadingId).remove();
         appendMessage(aiResponse, 'bot-msg');
 
     } catch (error) {
-        document.getElementById(loadingId).innerText = "Erro na conexão segura. Tente novamente.";
+        console.error(error);
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.innerText = "Erro: Verifique sua conexão ou API Key no Google AI Studio.";
     }
 }
 
@@ -76,9 +77,10 @@ function appendMessage(text, className, id = null) {
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
+    window.scrollTo(0,0);
 }
 
 function enviarRelato() {
-    alert("Seu relato foi criptografado e enviado ao banco de dados seguro.");
+    alert("Relato sigiloso enviado com sucesso.");
     showView('home');
 }
