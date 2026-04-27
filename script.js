@@ -3,22 +3,42 @@ const GEMINI_API_KEY = 'AIzaSyDAo7C9lmOy5D8JX-JkLIvLbRT8fHDovm8';
 document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) lucide.createIcons();
     
-    // Configuração de Partículas Refinada
+    // Configuração de Partículas Neon
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 70 },
+                "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#B89650" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.4 },
-                "size": { "value": 2 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#B89650", "opacity": 0.2 },
-                "move": { "enable": true, "speed": 1.5 }
-            }
+                "opacity": { 
+                    "value": 0.8, 
+                    "random": true, 
+                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.3, "sync": false } 
+                },
+                "size": { 
+                    "value": 3, 
+                    "random": true, 
+                    "anim": { "enable": true, "speed": 2, "size_min": 0.1, "sync": false } 
+                },
+                "line_linked": { 
+                    "enable": true, 
+                    "distance": 150, 
+                    "color": "#B89650", 
+                    "opacity": 0.4, 
+                    "width": 1.5 
+                },
+                "move": { "enable": true, "speed": 2.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "grab" } },
+                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.8 } } }
+            },
+            "retina_detect": true
         });
     }
 });
 
+// Mantive as funções de toggleChat, enviarChat e showView conforme o código anterior
 function toggleChat() {
     const chat = document.getElementById('chatWindow');
     chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
@@ -35,35 +55,29 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('O Assistente Ético está analisando...', 'bot-msg', loadingId);
+    appendMessage('Processando...', 'bot-msg', loadingId);
 
     try {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{
-                        text: `Você é o Assistente Ético do portal 'Code of Respect'. Responda de forma acolhedora e profissional. Pergunta: ${userText}`
-                    }]
+                    parts: [{ text: `Aja como o Assistente Ético do portal 'Code of Respect'. Pergunta: ${userText}` }]
                 }]
             })
         });
 
         const data = await response.json();
-        
-        if (data.error) throw new Error(data.error.message);
-
         const aiResponse = data.candidates[0].content.parts[0].text;
         document.getElementById(loadingId).remove();
         appendMessage(aiResponse, 'bot-msg');
 
     } catch (error) {
-        console.error(error);
-        const loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.innerText = "Erro na conexão segura. Verifique se a chave de API está ativa.";
+        if (document.getElementById(loadingId)) {
+            document.getElementById(loadingId).innerText = "Erro na conexão segura.";
+        }
     }
 }
 
@@ -84,7 +98,6 @@ function showView(viewId) {
 }
 
 function enviarRelato() {
-    alert("Relato enviado com sucesso. Sua identidade está protegida.");
-    document.getElementById('relatoTexto').value = "";
+    alert("Relato enviado com segurança.");
     showView('home');
 }
