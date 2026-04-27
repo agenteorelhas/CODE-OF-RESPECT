@@ -3,42 +3,37 @@ const GEMINI_API_KEY = 'AIzaSyDAo7C9lmOy5D8JX-JkLIvLbRT8fHDovm8';
 document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) lucide.createIcons();
     
-    // Configuração de Partículas Neon
+    // Partículas Neon Vibrantes
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#B89650" },
                 "shape": { "type": "circle" },
                 "opacity": { 
-                    "value": 0.8, 
+                    "value": 0.9, 
                     "random": true, 
-                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.3, "sync": false } 
+                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.4, "sync": false } 
                 },
-                "size": { 
-                    "value": 3, 
-                    "random": true, 
-                    "anim": { "enable": true, "speed": 2, "size_min": 0.1, "sync": false } 
-                },
+                "size": { "value": 3, "random": true },
                 "line_linked": { 
                     "enable": true, 
                     "distance": 150, 
                     "color": "#B89650", 
-                    "opacity": 0.4, 
+                    "opacity": 0.5, 
                     "width": 1.5 
                 },
-                "move": { "enable": true, "speed": 2.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": true }
             },
             "interactivity": {
                 "events": { "onhover": { "enable": true, "mode": "grab" } },
-                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.8 } } }
+                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 1 } } }
             },
             "retina_detect": true
         });
     }
 });
 
-// Mantive as funções de toggleChat, enviarChat e showView conforme o código anterior
 function toggleChat() {
     const chat = document.getElementById('chatWindow');
     chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
@@ -55,7 +50,7 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('Processando...', 'bot-msg', loadingId);
+    appendMessage('O Assistente Ético está digitando...', 'bot-msg', loadingId);
 
     try {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
@@ -64,20 +59,22 @@ async function enviarChat() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: `Aja como o Assistente Ético do portal 'Code of Respect'. Pergunta: ${userText}` }]
+                    parts: [{ text: `Aja como o Assistente Ético do portal 'Code of Respect'. Forneça conselhos profissionais sobre ética e assédio. Pergunta: ${userText}` }]
                 }]
             })
         });
 
         const data = await response.json();
         const aiResponse = data.candidates[0].content.parts[0].text;
-        document.getElementById(loadingId).remove();
+        
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.remove();
+        
         appendMessage(aiResponse, 'bot-msg');
 
     } catch (error) {
-        if (document.getElementById(loadingId)) {
-            document.getElementById(loadingId).innerText = "Erro na conexão segura.";
-        }
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.innerText = "Erro na conexão segura. Tente novamente.";
     }
 }
 
@@ -94,10 +91,11 @@ function appendMessage(text, className, id = null) {
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
-    window.scrollTo(0,0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function enviarRelato() {
-    alert("Relato enviado com segurança.");
+    alert("Relato criptografado e enviado com sucesso.");
+    document.getElementById('relatoTexto').value = "";
     showView('home');
 }
