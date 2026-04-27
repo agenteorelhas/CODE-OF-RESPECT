@@ -1,53 +1,85 @@
-:root {
-    --primary: #040911; --secondary: #080f1d; --accent: #B89650; 
-    --bg-dark: #000000; --text-main: #E2E8F0; --border: rgba(184, 150, 80, 0.2);
+const GEMINI_API_KEY = 'AIzaSyCss0yqKyChzh1kGA_QiVDo9LqTsuU0syA';
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializa ícones do Lucide (corrige o botão sem ícone)
+    if (window.lucide) lucide.createIcons();
+    
+    // Inicializa partículas
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 30 },
+                "color": { "value": "#B89650" },
+                "line_linked": { "opacity": 0.1 }
+            }
+        });
+    }
+});
+
+function toggleChat() {
+    const chat = document.getElementById('chatWindow');
+    chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
 
-body { 
-    background-color: var(--bg-dark); 
-    color: var(--text-main); 
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh;
+async function enviarChat() {
+    const input = document.getElementById('chatInput');
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    appendMessage(userText, 'user-msg');
+    input.value = '';
+
+    const loadingId = 'loading-' + Date.now();
+    appendMessage('Analisando...', 'bot-msg', loadingId);
+
+    try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: `Aja como o Assistente Ético do portal Code of Respect. Pergunta: ${userText}`
+                    }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) throw new Error(data.error.message);
+
+        const aiResponse = data.candidates[0].content.parts[0].text;
+        document.getElementById(loadingId).remove();
+        appendMessage(aiResponse, 'bot-msg');
+
+    } catch (error) {
+        console.error(error);
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.innerText = "Erro na conexão segura. Tente recarregar a página.";
+    }
 }
 
-/* Partículas ao fundo */
-#particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+function appendMessage(text, className, id = null) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `msg ${className}`;
+    if (id) msgDiv.id = id;
+    msgDiv.innerText = text;
+    const container = document.getElementById('chatMessages');
+    container.appendChild(msgDiv);
+    container.scrollTop = container.scrollHeight;
+}
 
-.main-content { position: relative; z-index: 1; flex: 1; }
+function showView(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(viewId).classList.add('active');
+}
 
-.security-banner { background: var(--accent); color: var(--primary); text-align: center; padding: 10px; font-weight: 800; font-size: 0.7rem; }
-
-nav { display: flex; align-items: center; padding: 20px 5%; border-bottom: 1px solid var(--border); background: rgba(4, 9, 17, 0.8); }
-.logo-gold { font-family: 'Cinzel', serif; color: var(--accent); font-weight: 800; font-size: 1.2rem; }
-.nav-links { margin-left: auto; display: flex; gap: 20px; }
-.nav-links a { color: white; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
-
-.container { padding: 4rem 5%; }
-.hero { text-align: center; margin-bottom: 3rem; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 1rem; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; justify-content: center; }
-.card { background: var(--secondary); padding: 30px; border: 1px solid var(--border); text-align: center; }
-.icon-gold { color: var(--accent); margin-bottom: 15px; width: 40px; height: 40px; }
-
-/* CHATBOT */
-.chat-widget { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); cursor: pointer; z-index: 9999; }
-.chat-container { position: fixed; bottom: 95px; right: 25px; width: 320px; height: 450px; background: var(--primary); border: 1px solid var(--border); display: none; flex-direction: column; z-index: 10000; border-radius: 8px; }
-.chat-header { background: var(--accent); color: var(--primary); padding: 15px; font-weight: 800; display: flex; justify-content: space-between; }
-.chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #02060c; display: flex; flex-direction: column; gap: 10px; }
-.msg { padding: 10px; border-radius: 4px; font-size: 0.85rem; max-width: 85%; }
-.bot-msg { background: var(--secondary); align-self: flex-start; border-left: 3px solid var(--accent); }
-.user-msg { background: var(--accent); color: var(--primary); align-self: flex-end; }
-.chat-input-area { padding: 10px; display: flex; border-top: 1px solid var(--border); }
-.chat-input-area input { flex: 1; background: transparent; border: none; color: white; outline: none; }
-.btn-send { background: transparent; border: none; color: var(--accent); cursor: pointer; }
-
-.btn { border: none; padding: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; }
-.btn-main { background: var(--accent); color: var(--primary); }
-
-.view { display: none; }
-.view.active { display: block; }
-.final-footer { padding: 40px; text-align: center; border-top: 1px solid var(--border); }
+function enviarRelato() {
+    alert("Relato sigiloso enviado.");
+    showView('home');
+}
