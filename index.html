@@ -3,38 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code of Respect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Code of Respect | Ética Corporativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
 
-    <div class="chat-widget" onclick="toggleChat()" id="chatBtn">
+    <div class="chat-widget" onclick="toggleChat()">
         <i data-lucide="message-circle"></i>
     </div>
 
     <div class="chat-container" id="chatWindow">
         <div class="chat-header">
             <span>IA - ASSISTENTE ÉTICO</span>
-            <span onclick="toggleChat()" style="cursor:pointer">X</span>
+            <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer; width:18px;"></i>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="msg bot-msg">Olá. Como posso ajudar hoje?</div>
+            <div class="msg bot-msg">Olá. Sou o Assistente Ético. Como posso ajudar você hoje?</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Digite aqui..." onkeypress="handleKeyPress(event)">
-            <button onclick="enviarChat()">></button>
+            <input type="text" id="chatInput" placeholder="Sua dúvida..." onkeypress="handleKeyPress(event)">
+            <button class="btn-send" onclick="enviarChat()">
+                <i data-lucide="send" style="width:18px;"></i>
+            </button>
         </div>
     </div>
 
     <div class="main-content">
+        <div class="security-banner">AMBIENTE CRIPTOGRAFADO • CANAL 100% GRATUITO</div>
+        
         <nav>
             <div class="logo-gold">⚖ CODE OF RESPECT</div>
             <div class="nav-links">
-                <a href="#" onclick="showView('home')">Início</a>
-                <a href="#" onclick="showView('denuncia')">Denunciar</a>
+                <a onclick="showView('home')">Início</a>
+                <a onclick="showView('denuncia')">Denunciar</a>
             </div>
         </nav>
 
@@ -42,12 +47,33 @@
             <main id="home" class="view active">
                 <section class="hero">
                     <h1>Justiça, Ética e Respeito.</h1>
+                    <p>Combate ao Assédio Moral no Meio Corporativo.</p>
                 </section>
                 <div class="grid">
                     <div class="card">
+                        <i data-lucide="gavel" class="icon-gold"></i>
                         <h3>Denúncia Segura</h3>
-                        <p>Relate de forma sigilosa.</p>
+                        <p>Relate de forma 100% anônima.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
                 </div>
             </main>
+
+            <section id="denuncia" class="view">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <h2>Relato Sigiloso</h2>
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos..."></textarea>
+                    <button class="btn btn-main" style="width:100%" onclick="enviarRelato()">Enviar</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="final-footer">
+        <div class="footer-logo">CODE OF RESPECT</div>
+        <p>© 2026 - Proteção e Sigilo Absoluto.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
