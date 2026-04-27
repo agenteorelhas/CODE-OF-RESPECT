@@ -1,82 +1,51 @@
-const GEMINI_API_KEY = 'AIzaSyCss0yqKyChzh1kGA_QiVDo9LqTsuU0syA';
+// ATENÇÃO: Use sua chave real aqui
+const API_KEY = 'AIzaSyCss0yqKyChzh1kGA_QiVDo9LqTsuU0syA';
 
+// Inicializa ícones e navegação
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.lucide) lucide.createIcons();
-    if (typeof particlesJS !== 'undefined') {
-        particlesJS('particles-js', {
-            "particles": {
-                "number": { "value": 40 },
-                "color": { "value": "#B89650" },
-                "line_linked": { "color": "#B89650", "opacity": 0.1 }
-            }
-        });
-    }
+    lucide.createIcons();
 });
 
 function toggleChat() {
     const chat = document.getElementById('chatWindow');
-    chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
 }
 
 function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
 
 async function enviarChat() {
     const input = document.getElementById('chatInput');
-    const userText = input.value.trim();
-    if (!userText) return;
+    const text = input.value.trim();
+    if (!text) return;
 
-    appendMessage(userText, 'user-msg');
+    appendMessage(text, 'user-msg');
     input.value = '';
 
-    const loadingId = 'loading-' + Date.now();
-    appendMessage('O Assistente Ético está analisando...', 'bot-msg', loadingId);
-
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-        
-        const response = await fetch(url, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: `VOCÊ É O AGENTE 'CODE OF RESPECT'. 
-                        Sua missão é ser um Assistente Ético especializado em assédio moral. 
-                        TOM: Empático, seguro, profissional e imparcial. 
-                        OBJETIVO: Ouvir o usuário, explicar o que configura assédio e orientar canais de denúncia.
-                        USUÁRIO DIZ: ${userText}`
-                    }]
-                }]
-            })
+            body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
         });
-
+        
         const data = await response.json();
-        const aiResponse = data.candidates[0].content.parts[0].text;
-
-        document.getElementById(loadingId).remove();
-        appendMessage(aiResponse, 'bot-msg');
-
-    } catch (error) {
-        document.getElementById(loadingId).innerText = "Erro: A chave de API ainda está propagando ou é inválida. Tente em 1 minuto.";
+        const botText = data.candidates[0].content.parts[0].text;
+        appendMessage(botText, 'bot-msg');
+    } catch (e) {
+        appendMessage("Erro de conexão. Verifique sua internet.", 'bot-msg');
     }
 }
 
-function appendMessage(text, className, id = null) {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `msg ${className}`;
-    if (id) msgDiv.id = id;
-    msgDiv.innerText = text;
+function appendMessage(text, type) {
+    const div = document.createElement('div');
+    div.className = `msg ${type}`;
+    div.innerText = text;
+    document.getElementById('chatMessages').appendChild(div);
     const container = document.getElementById('chatMessages');
-    container.appendChild(msgDiv);
     container.scrollTop = container.scrollHeight;
 }
 
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
-}
-
-function enviarRelato() {
-    alert("Relato enviado com sucesso. Sua identidade está protegida.");
-    showView('home');
 }
