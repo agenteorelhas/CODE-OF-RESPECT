@@ -1,3 +1,45 @@
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) lucide.createIcons();
+    
+    // Partículas Neon Vibrantes
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#B89650" },
+                "shape": { "type": "circle" },
+                "opacity": { 
+                    "value": 0.9, 
+                    "random": true, 
+                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.4, "sync": false } 
+                },
+                "size": { "value": 3, "random": true },
+                "line_linked": { 
+                    "enable": true, 
+                    "distance": 150, 
+                    "color": "#B89650", 
+                    "opacity": 0.5, 
+                    "width": 1.5 
+                },
+                "size": { "value": 3, "random": true },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": true }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "grab" } },
+                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 1 } } }
+            },
+            "retina_detect": true
+        });
+    }
+});
+
+function toggleChat() {
+    const chat = document.getElementById('chatWindow');
+    chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+}
+
+function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
+
 async function enviarChat() {
     const input = document.getElementById('chatInput');
     const userText = input.value.trim();
@@ -7,32 +49,10 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('O Assistente Ético está a digitar...', 'bot-msg', loadingId);
+    appendMessage('O Assistente Ético está processando...', 'bot-msg', loadingId);
 
     try {
-        // IMPORTANTE: Assim que o Render terminar o deploy, ele dá-te um link.
-        // Substitui "TEU-APP-AQUI.onrender.com" pelo link que o Render te der.
-        const RENDER_URL = "https://TEU-APP-AQUI.onrender.com/chat";
-        
-        const response = await fetch(RENDER_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userText })
-        });
-
-        const data = await response.json();
-        const loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.remove();
-        
-        if (data.text) {
-            appendMessage(data.text, 'bot-msg');
-        } else {
-            throw new Error("Resposta vazia do servidor");
-        }
-
-    } catch (error) {
-        console.error("Erro na ligação:", error);
-        const loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.innerText = "Erro na ligação segura. Tenta novamente.";
-    }
-}
+        // --- CONFIGURAÇÃO IMPORTANTE ---
+        // Substitua a URL abaixo pela URL que o Render gerou para o seu Web Service
+        // Exemplo: https://code-of-respect-api.onrender.com/chat
+        const RENDER_API_URL = "https://SUA-URL
