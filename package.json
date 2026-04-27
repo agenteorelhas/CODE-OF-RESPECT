@@ -4,8 +4,17 @@
   "description": "Este projeto acadêmico visa fornecer um ambiente seguro e anônimo para vítimas de assédio moral.",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "code-of-respect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js" 
   },
+  "dependencies": {
+    "@google/generative-ai": "^0.x.x"
+  }
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/agenteorelhas/CODE-OF-RESPECT.git"
