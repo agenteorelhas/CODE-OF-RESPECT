@@ -6,21 +6,43 @@
     <title>Code of Respect | Ética Corporativa</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
 
+    <div class="chat-widget" onclick="toggleChat()">
+        <i data-lucide="message-circle"></i>
+    </div>
+
+    <div class="chat-container" id="chatWindow">
+        <div class="chat-header">
+            <span>IA - ASSISTENTE ÉTICO</span>
+            <i data-lucide="x" class="close-chat" onclick="toggleChat()"></i>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="msg bot-msg">Olá! Sou sua inteligência artificial de apoio ético. Como posso ajudar você hoje?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Digite sua dúvida ética..." onkeypress="handleKeyPress(event)">
+            <button class="btn-send" onclick="enviarChat()">
+                <i data-lucide="send" style="width: 18px;"></i>
+            </button>
+        </div>
+    </div>
+
     <div class="main-content">
         <div class="security-banner">
-            <i data-lucide="shield-check"></i> Ambiente Criptografado • Canal 100% Sigiloso
+            <i data-lucide="shield-check" style="width:14px; vertical-align: middle;"></i> Ambiente Criptografado • Canal 100% Gratuito
         </div>
 
         <nav>
             <div class="logo-gold">⚖ CODE OF RESPECT</div>
             <div class="nav-links">
-                <button class="nav-btn" onclick="showView('home')">Início</button>
-                <button class="nav-btn" onclick="showView('denuncia')">Denunciar</button>
-                <button class="nav-btn" onclick="showView('quiz')">Auto Avaliação</button>
+                <a href="javascript:void(0)" onclick="showView('home')">Início</a>
+                <a href="javascript:void(0)" onclick="showView('denuncia')">Denunciar</a>
+                <a href="javascript:void(0)" onclick="showView('quiz')">Auto Avaliação</a>
             </div>
         </nav>
 
@@ -28,69 +50,66 @@
             <main id="home" class="view active">
                 <section class="hero">
                     <h1>Justiça, Ética e Respeito.</h1>
-                    <p>Combate ao Assédio Moral no Meio Corporativo.</p>
+                    <p>Combate ao Assédio Moral no Meio Corporativo com base no Respeito Mútuo.</p>
                 </section>
 
-                <div class="grid-container">
+                <div class="grid">
                     <div class="card">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
                         <h3>Denúncia Segura</h3>
-                        <p>Relate de forma anônima e sigilosa. Protegemos você.</p>
+                        <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
-
                     <div class="card">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
-                        <p>Identifique se está vivenciando uma situação de abuso.</p>
+                        <p>Identifique se você está vivenciando uma situação de abuso.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
-
                     <div class="card">
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
-                        <h3>Canais Externos</h3>
+                        <h3>Órgãos Oficiais</h3>
                         <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
-                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Acessar MPT</button>
+                        <button class="btn btn-accent" style="width:100%;">Canais Externos</button>
                     </div>
                 </div>
+
+                <section class="quote-section">
+                    <div id="quote-container">
+                        <p id="quote-text" style="font-size: 1.4rem; font-style: italic;">"O assédio moral no trabalho é a exposição dos trabalhadores a situações humilhantes."</p>
+                        <p id="quote-author" style="color: var(--accent); font-weight: 800; margin-top: 20px;">— Margarida Barreto</p>
+                    </div>
+                </section>
             </main>
 
             <section id="denuncia" class="view">
-                <div class="card form-box">
-                    <h2>Relato Sigiloso</h2>
-                    <input type="text" id="iniciais" placeholder="Iniciais (Ex: J.K.)">
-                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos..."></textarea>
-                    <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
-                    <div id="feed-relatos"></div>
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: var(--accent); margin-bottom:20px; font-family: 'Cinzel', serif;">Relato Sigiloso</h2>
+                    <label>Iniciais do Envolvido:</label>
+                    <input type="text" id="iniciais" placeholder="Ex: J.K.">
+                    <label>Descrição detalhada:</label>
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos com tranquilidade..."></textarea>
+                    <button class="btn btn-main" style="width:100%;" onclick="enviarRelato()">Enviar Sigilosamente</button>
                 </div>
             </section>
 
             <section id="quiz" class="view">
-                <div class="card quiz-box">
-                    <h2 id="question-text">Você sofre críticas sistemáticas em público?</h2>
-                    <div class="quiz-btns" style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-main" onclick="nextQuestion()">Sim</button>
-                        <button class="btn btn-accent" onclick="nextQuestion()">Não</button>
+                <div class="card" style="max-width: 550px; margin: 0 auto; text-align: center;">
+                    <h2 id="question-text" style="font-size: 1.3rem;">Você sofre críticas sistemáticas em público de forma humilhante?</h2>
+                    <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn btn-main" onclick="nextQuestion()">Sim, acontece</button>
+                        <button class="btn btn-accent" onclick="nextQuestion()">Não / Raramente</button>
                     </div>
                 </div>
             </section>
-        </div>
-    </div>
+        </div> 
+    </div> 
 
-    <div class="chat-widget" onclick="toggleChat()">
-        <i data-lucide="message-circle"></i>
-    </div>
-    <div class="chat-container" id="chatWindow">
-        <div class="chat-header"><span>ASSISTENTE</span><i data-lucide="x" onclick="toggleChat()" style="cursor:pointer"></i></div>
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-footer">
-            <input type="text" id="chatInput" placeholder="Sua dúvida...">
-            <button onclick="enviarChat()">></button>
-        </div>
-    </div>
+    <footer class="final-footer">
+        <div class="footer-logo">CODE OF RESPECT</div>
+        <p>© 2026 - Proteção e Sigilo Absoluto.</p>
+    </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
