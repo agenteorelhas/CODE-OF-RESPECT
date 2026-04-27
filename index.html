@@ -19,18 +19,76 @@
     <div class="chat-container" id="chatWindow">
         <div class="chat-header">
             <span>IA - ASSISTENTE ÉTICO</span>
-            <i data-lucide="x" class="close-chat" onclick="toggleChat()" style="cursor:pointer;"></i>
+            <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer; width:18px;"></i>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="msg bot-msg">Olá. Sou o Assistente Ético do Code of Respect. Estou aqui para oferecer um espaço seguro e orientações precisas. Como posso ajudar?</div>
+            <div class="msg bot-msg">Olá. Sou o Assistente Ético do Code of Respect. Como posso ajudar você hoje?</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Sua dúvida ou relato..." onkeypress="handleKeyPress(event)">
-            <button class="btn-send" onclick="enviarChat()">
-                <i data-lucide="send" style="width: 18px;"></i>
-            </button>
+            <input type="text" id="chatInput" placeholder="Sua dúvida ética..." onkeypress="handleKeyPress(event)">
+            <button class="btn-send" onclick="enviarChat()"><i data-lucide="send" style="width:18px;"></i></button>
         </div>
     </div>
 
     <div class="main-content">
-        <div class="security-banner">
+        <div class="security-banner">AMBIENTE CRIPTOGRAFADO • CANAL 100% GRATUITO</div>
+        
+        <nav>
+            <div class="logo-gold">⚖ CODE OF RESPECT</div>
+            <div class="nav-links">
+                <a onclick="showView('home')">Início</a>
+                <a onclick="showView('denuncia')">Denunciar</a>
+                <a onclick="showView('quiz')">Quiz</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <main id="home" class="view active">
+                <section class="hero">
+                    <h1>Justiça, Ética e Respeito.</h1>
+                    <p>Combate ao Assédio Moral no Meio Corporativo.</p>
+                </section>
+                <div class="grid">
+                    <div class="card">
+                        <div class="icon-box"><i data-lucide="gavel"></i></div>
+                        <h3>Denúncia Segura</h3>
+                        <p>Relate de forma 100% anônima e sigilosa.</p>
+                        <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
+                        <h3>Auto Avaliação</h3>
+                        <p>Identifique se você está vivenciando abusos.</p>
+                        <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
+                    </div>
+                </div>
+            </main>
+
+            <section id="denuncia" class="view">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: var(--accent); margin-bottom:20px;">Relato Sigiloso</h2>
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos com tranquilidade..."></textarea>
+                    <button class="btn btn-main" style="width:100%" onclick="enviarRelato()">Enviar Sigilosamente</button>
+                </div>
+            </section>
+
+            <section id="quiz" class="view">
+                <div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+                    <h2>Sua saúde mental está sendo afetada pelo trabalho?</h2>
+                    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn btn-main" onclick="alert('Procure nosso chat para orientação.')">Sim, frequentemente</button>
+                        <button class="btn btn-accent" onclick="showView('home')">Não / Raramente</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="final-footer">
+        <div class="footer-logo">CODE OF RESPECT</div>
+        <p>© 2026 - Proteção e Sigilo Absoluto.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
