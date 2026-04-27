@@ -1,7 +1,6 @@
 {
   "name": "code-of-respect",
   "version": "1.0.0",
-  "description": "Assistente Ético contra assédio moral",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
