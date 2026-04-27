@@ -19,13 +19,13 @@
     <div class="chat-container" id="chatWindow">
         <div class="chat-header">
             <span>IA - ASSISTENTE ÉTICO</span>
-            <i data-lucide="x" class="close-chat" onclick="toggleChat()"></i>
+            <i data-lucide="x" class="close-chat" onclick="toggleChat()" style="cursor:pointer;"></i>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="msg bot-msg">Olá! Sou sua inteligência artificial de apoio ético. Como posso ajudar você hoje?</div>
+            <div class="msg bot-msg">Olá. Sou o Assistente Ético do Code of Respect. Estou aqui para oferecer um espaço seguro e orientações precisas sobre conduta no trabalho. Como posso ajudar?</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Digite sua dúvida ética..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="chatInput" placeholder="Sua dúvida ou relato..." onkeypress="handleKeyPress(event)">
             <button class="btn-send" onclick="enviarChat()">
                 <i data-lucide="send" style="width: 18px;"></i>
             </button>
@@ -73,13 +73,6 @@
                         <button class="btn btn-accent" style="width:100%;">Canais Externos</button>
                     </div>
                 </div>
-
-                <section class="quote-section">
-                    <div id="quote-container">
-                        <p id="quote-text" style="font-size: 1.4rem; font-style: italic;">"O assédio moral no trabalho é a exposição dos trabalhadores a situações humilhantes."</p>
-                        <p id="quote-author" style="color: var(--accent); font-weight: 800; margin-top: 20px;">— Margarida Barreto</p>
-                    </div>
-                </section>
             </main>
 
             <section id="denuncia" class="view">
@@ -88,17 +81,17 @@
                     <label>Iniciais do Envolvido:</label>
                     <input type="text" id="iniciais" placeholder="Ex: J.K.">
                     <label>Descrição detalhada:</label>
-                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos com tranquilidade..."></textarea>
+                    <textarea id="relatoTexto" rows="5" placeholder="Descreva os fatos..."></textarea>
                     <button class="btn btn-main" style="width:100%;" onclick="enviarRelato()">Enviar Sigilosamente</button>
                 </div>
             </section>
 
             <section id="quiz" class="view">
                 <div class="card" style="max-width: 550px; margin: 0 auto; text-align: center;">
-                    <h2 id="question-text" style="font-size: 1.3rem;">Você sofre críticas sistemáticas em público de forma humilhante?</h2>
+                    <h2 id="question-text" style="font-size: 1.3rem;">O ambiente de trabalho tem prejudicado sua saúde mental?</h2>
                     <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
-                        <button class="btn btn-main" onclick="nextQuestion()">Sim, acontece</button>
-                        <button class="btn btn-accent" onclick="nextQuestion()">Não / Raramente</button>
+                        <button class="btn btn-main" onclick="nextQuestion()">Sim</button>
+                        <button class="btn btn-accent" onclick="nextQuestion()">Não</button>
                     </div>
                 </div>
             </section>
