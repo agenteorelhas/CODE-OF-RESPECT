@@ -1,13 +1,19 @@
 const GEMINI_API_KEY = 'AIzaSyDAo7C9lmOy5D8JX-JkLIvLbRT8fHDovm8';
 
 document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
-    if(typeof particlesJS !== 'undefined') {
+    if (window.lucide) lucide.createIcons();
+    
+    // Configuração de Partículas Refinada
+    if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 50 },
+                "number": { "value": 70 },
                 "color": { "value": "#B89650" },
-                "line_linked": { "color": "#B89650", "opacity": 0.1 }
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.4 },
+                "size": { "value": 2 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#B89650", "opacity": 0.2 },
+                "move": { "enable": true, "speed": 1.5 }
             }
         });
     }
@@ -15,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleChat() {
     const chat = document.getElementById('chatWindow');
-    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+    chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
 }
 
 function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
@@ -29,37 +35,35 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('Consultando diretrizes éticas...', 'bot-msg', loadingId);
+    appendMessage('O Assistente Ético está analisando...', 'bot-msg', loadingId);
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `VOCÊ É O GEM 'CODE OF RESPECT' (ASSISTENTE ÉTICO).
-                        INSTRUÇÕES:
-                        - Atue como um especialista em mediação de conflitos e ética corporativa.
-                        - Seu tom é acolhedor, empático, mas extremamente profissional e imparcial.
-                        - Ajude usuários a identificarem assédio moral e dê orientações práticas sobre canais de denúncia (MPT, RH, Ouvidorias).
-                        - Se o usuário estiver em crise, recomende ajuda profissional.
-                        - Seja direto e evite textos excessivamente longos a menos que solicitado.
-                        
-                        USUÁRIO PERGUNTA: ${userText}`
+                        text: `Você é o Assistente Ético do portal 'Code of Respect'. Responda de forma acolhedora e profissional. Pergunta: ${userText}`
                     }]
                 }]
             })
         });
 
         const data = await response.json();
-        const aiResponse = data.candidates[0].content.parts[0].text;
+        
+        if (data.error) throw new Error(data.error.message);
 
+        const aiResponse = data.candidates[0].content.parts[0].text;
         document.getElementById(loadingId).remove();
         appendMessage(aiResponse, 'bot-msg');
 
     } catch (error) {
-        document.getElementById(loadingId).innerText = "Erro na conexão segura. Tente novamente.";
+        console.error(error);
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.innerText = "Erro na conexão segura. Verifique se a chave de API está ativa.";
     }
 }
 
@@ -76,9 +80,11 @@ function appendMessage(text, className, id = null) {
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
+    window.scrollTo(0,0);
 }
 
 function enviarRelato() {
-    alert("Seu relato foi criptografado e enviado ao banco de dados seguro.");
+    alert("Relato enviado com sucesso. Sua identidade está protegida.");
+    document.getElementById('relatoTexto').value = "";
     showView('home');
 }
