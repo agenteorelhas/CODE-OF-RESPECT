@@ -1,16 +1,17 @@
 const GEMINI_API_KEY = 'AIzaSyCss0yqKyChzh1kGA_QiVDo9LqTsuU0syA';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializa ícones do Lucide (corrige o botão sem ícone)
+    // Inicializa ícones
     if (window.lucide) lucide.createIcons();
     
-    // Inicializa partículas
+    // Inicializa partículas (evita que a tela fique preta ou branca)
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 30 },
+                "number": { "value": 40 },
                 "color": { "value": "#B89650" },
-                "line_linked": { "opacity": 0.1 }
+                "opacity": { "value": 0.2 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#B89650", "opacity": 0.1 }
             }
         });
     }
@@ -32,7 +33,7 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('Analisando...', 'bot-msg', loadingId);
+    appendMessage('O Assistente Ético está processando...', 'bot-msg', loadingId);
 
     try {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
@@ -43,7 +44,7 @@ async function enviarChat() {
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `Aja como o Assistente Ético do portal Code of Respect. Pergunta: ${userText}`
+                        text: `Você é o Assistente Ético do 'Code of Respect'. Responda de forma profissional e acolhedora: ${userText}`
                     }]
                 }]
             })
@@ -60,7 +61,10 @@ async function enviarChat() {
     } catch (error) {
         console.error(error);
         const loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.innerText = "Erro na conexão segura. Tente recarregar a página.";
+        if (loadingEl) {
+            loadingEl.innerText = "Erro na conexão. Verifique se sua chave de API está ativa no Google AI Studio.";
+            loadingEl.style.color = "#ff4444";
+        }
     }
 }
 
@@ -77,9 +81,10 @@ function appendMessage(text, className, id = null) {
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
+    window.scrollTo(0,0);
 }
 
 function enviarRelato() {
-    alert("Relato sigiloso enviado.");
+    alert("Relato enviado com sucesso.");
     showView('home');
 }
