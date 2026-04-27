@@ -60,20 +60,22 @@
                     <div class="card">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
                         <h3>Denúncia Segura</h3>
-                        <p>Relate de forma 100% anônima. Protegemos você.</p>
+                        <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
+
                     <div class="card">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
-                        <p>Identifique situações de abuso no trabalho.</p>
+                        <p>Identifique se você está vivenciando uma situação de abuso.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
+
                     <div class="card">
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
                         <h3>Órgãos Oficiais</h3>
                         <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
-                        <button class="btn btn-accent" style="width:100%;">Canais Externos</button>
+                        <button class="btn btn-accent">Canais Externos</button>
                     </div>
                 </div>
             </main>
@@ -81,7 +83,7 @@
             <section id="denuncia" class="view">
                 <div class="card form-container">
                     <h2>Relato Sigiloso</h2>
-                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos com o máximo de detalhe..."></textarea>
+                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos com detalhes..."></textarea>
                     <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
                 </div>
             </section>
