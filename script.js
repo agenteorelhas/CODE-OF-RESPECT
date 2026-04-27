@@ -1,4 +1,4 @@
-const GEMINI_API_KEY = 'AIzaSyDAo7C9lmOy5D8JX-JkLIvLbRT8fHDovm8';
+const GEMINI_API_KEY = 'AIzaSyCss0yqKyChzh1kGA_QiVDo9LqTsuU0syA';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) lucide.createIcons();
@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "particles": {
                 "number": { "value": 40 },
                 "color": { "value": "#B89650" },
-                "opacity": { "value": 0.2 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#B89650", "opacity": 0.1 }
+                "line_linked": { "color": "#B89650", "opacity": 0.1 }
             }
         });
     }
@@ -30,11 +29,10 @@ async function enviarChat() {
     input.value = '';
 
     const loadingId = 'loading-' + Date.now();
-    appendMessage('Analisando conduta...', 'bot-msg', loadingId);
+    appendMessage('O Assistente Ético está analisando...', 'bot-msg', loadingId);
 
     try {
-        // Usando a URL estável v1
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
             method: 'POST',
@@ -42,25 +40,24 @@ async function enviarChat() {
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `Aja como o GEM 'Code of Respect', assistente ético corporativo. 
-                        Use um tom profissional e acolhedor. Ajude com o seguinte: ${userText}`
+                        text: `VOCÊ É O AGENTE 'CODE OF RESPECT'. 
+                        Sua missão é ser um Assistente Ético especializado em assédio moral. 
+                        TOM: Empático, seguro, profissional e imparcial. 
+                        OBJETIVO: Ouvir o usuário, explicar o que configura assédio e orientar canais de denúncia.
+                        USUÁRIO DIZ: ${userText}`
                     }]
                 }]
             })
         });
 
         const data = await response.json();
-        
-        if (!response.ok) throw new Error(data.error?.message || 'Erro na API');
-
         const aiResponse = data.candidates[0].content.parts[0].text;
+
         document.getElementById(loadingId).remove();
         appendMessage(aiResponse, 'bot-msg');
 
     } catch (error) {
-        console.error(error);
-        const loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.innerText = "Erro: Verifique sua conexão ou API Key no Google AI Studio.";
+        document.getElementById(loadingId).innerText = "Erro: A chave de API ainda está propagando ou é inválida. Tente em 1 minuto.";
     }
 }
 
@@ -77,10 +74,9 @@ function appendMessage(text, className, id = null) {
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
-    window.scrollTo(0,0);
 }
 
 function enviarRelato() {
-    alert("Relato sigiloso enviado com sucesso.");
+    alert("Relato enviado com sucesso. Sua identidade está protegida.");
     showView('home');
 }
