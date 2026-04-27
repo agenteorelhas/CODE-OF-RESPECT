@@ -1,4 +1,4 @@
-const GEMINI_API_KEY = 'AIzaSyDAo7C9lmOy5D8JX-JkLIvLbRT8fHDovm8';
+const GEMINI_API_KEY = 'gemini_api_key';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) lucide.createIcons();
