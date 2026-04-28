@@ -37,7 +37,7 @@ function toggleChat() {
 
 function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
 
-// --- LIGAÇÃO COM SERVER / IA (CORRIGIDA PARA O RENDER) ---
+// --- LIGAÇÃO COM SERVER / IA (CORRIGIDA) ---
 async function enviarChat() {
     const input = document.getElementById('chatInput');
     const userText = input.value.trim();
@@ -50,20 +50,26 @@ async function enviarChat() {
     appendMessage('Processando...', 'bot-msg', loadingId);
 
     try {
-        // ATENÇÃO: Quando tiver o seu link do Render, cole aqui e mantenha o "/chat" no final
-        const RENDER_API_URL = "https://code-of-respect.onrender.com/chat"; 
-        
+        const RENDER_API_URL = "https://seu-link-aqui.onrender.com/chat"; 
         const response = await fetch(RENDER_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: userText })
         });
+        
         const data = await response.json();
-        document.getElementById(loadingId).innerText = data.text || "Sem resposta."; // Ajustado de data.response para data.text, pois seu server.js envia { text: ... }
+        
+        if (data.text) {
+            document.getElementById(loadingId).innerText = data.text;
+        } else {
+            document.getElementById(loadingId).innerText = "A IA não retornou um texto.";
+        }
+
     } catch (error) {
+        console.error("Erro na requisição:", error);
         document.getElementById(loadingId).innerText = "Erro na conexão segura.";
     }
-}
+} // <--- ESTA CHAVE ESTAVA FALTANDO PARA FECHAR A FUNÇÃO enviarChat
 
 function appendMessage(text, className, id = '') {
     const messages = document.getElementById('chatMessages');
@@ -74,7 +80,6 @@ function appendMessage(text, className, id = '') {
     messages.appendChild(msgDiv);
     messages.scrollTop = messages.scrollHeight;
 }
-
 // Funções de Denúncia (Registro em Cards)
 function salvarDenuncia() {
     const texto = document.getElementById('relatoTexto').value.trim();
