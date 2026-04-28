@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarDenuncias();
 });
 
+// Partículas de Alta Visibilidade
 function initParticles() {
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
@@ -11,16 +12,16 @@ function initParticles() {
                 "number": { "value": 110, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#FFD700" }, 
                 "opacity": { "value": 0.8, "random": true },
-                "size": { "value": 3, "random": true },
+                "size": { "value": 3 },
                 "line_linked": { "enable": true, "color": "#FFD700", "opacity": 0.5, "width": 1.5 },
-                "move": { "enable": true, "speed": 1.5, "random": true }
+                "move": { "enable": true, "speed": 1.5 }
             },
-            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-            "retina_detect": true
+            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } }
         });
     }
 }
 
+// Navegação entre abas
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const target = document.getElementById(viewId);
@@ -28,20 +29,59 @@ function showView(viewId) {
     if (viewId === 'quiz') startQuiz();
 }
 
+// Controle do Chat
 function toggleChat() {
     const chat = document.getElementById('chatWindow');
     chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
 }
 
+function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
+
+// --- LIGAÇÃO COM SERVER / IA (PRESERVADA) ---
+async function enviarChat() {
+    const input = document.getElementById('chatInput');
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    appendMessage(userText, 'user-msg');
+    input.value = '';
+
+    const loadingId = 'loading-' + Date.now();
+    appendMessage('Processando...', 'bot-msg', loadingId);
+
+    try {
+        const RENDER_API_URL = "SUA_URL_DO_RENDER_AQUI"; 
+        const response = await fetch(RENDER_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userText })
+        });
+        const data = await response.json();
+        document.getElementById(loadingId).innerText = data.response || "Sem resposta.";
+    } catch (error) {
+        document.getElementById(loadingId).innerText = "Erro na conexão segura.";
+    }
+}
+
+function appendMessage(text, className, id = '') {
+    const messages = document.getElementById('chatMessages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `msg ${className}`;
+    if (id) msgDiv.id = id;
+    msgDiv.innerText = text;
+    messages.appendChild(msgDiv);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+// Funções de Denúncia (Registro em Cards)
 function salvarDenuncia() {
     const texto = document.getElementById('relatoTexto').value.trim();
-    if (!texto) return alert("Descreva o relato antes de enviar.");
+    if (!texto) return alert("Escreva seu relato.");
     const denuncias = JSON.parse(localStorage.getItem('denuncias') || "[]");
     denuncias.unshift({ texto: texto, data: new Date().toLocaleDateString('pt-BR') });
     localStorage.setItem('denuncias', JSON.stringify(denuncias));
     document.getElementById('relatoTexto').value = "";
     renderizarDenuncias();
-    alert("Relato registrado sigilosamente.");
 }
 
 function renderizarDenuncias() {
@@ -51,35 +91,23 @@ function renderizarDenuncias() {
     container.innerHTML = denuncias.map(d => `
         <div class="card denuncia-card card-glow">
             <p>"${d.texto}"</p>
-            <small>ID ANÔNIMO • REGISTRADO EM ${d.data}</small>
+            <small style="color:var(--accent-muted); font-size:10px; margin-top:10px; display:block;">REGISTRO: ${d.data}</small>
         </div>`).join('');
 }
 
-// LÓGICA DO QUIZ
-const questions = ["Críticas humilhantes frequentes?", "Tarefas boicotadas ou isolamento?", "Agressões verbais ou ameaças?", "Danos à saúde mental percebidos?"];
+// Lógica do Quiz (MANTIDA)
+const questions = ["Críticas humilhantes?", "Tarefas boicotadas?", "Agressões verbais?", "Danos à saúde mental?"];
 let currentQ = 0, score = 0;
-
-function startQuiz() { 
-    currentQ = 0; score = 0; 
-    document.getElementById('quiz-result').style.display = 'none'; 
-    document.getElementById('quiz-content').style.display = 'block'; 
-    nextQuestion(); 
-}
-
+function startQuiz() { currentQ = 0; score = 0; document.getElementById('quiz-result').style.display = 'none'; document.getElementById('quiz-content').style.display = 'block'; nextQuestion(); }
 function nextQuestion() {
     if (currentQ < questions.length) {
         document.getElementById('quiz-question').innerText = questions[currentQ];
-        document.getElementById('quiz-options').innerHTML = `
-            <button class="btn btn-main" onclick="handleQuiz(true)">Sim</button>
-            <button class="btn btn-accent" onclick="handleQuiz(false)">Não</button>`;
-    } else { showQuizResult(); }
+        document.getElementById('quiz-options').innerHTML = `<button class="btn btn-main" onclick="handleQuiz(true)">Sim</button><button class="btn btn-accent" onclick="handleQuiz(false)">Não</button>`;
+    } else {
+        document.getElementById('quiz-content').style.display = 'none';
+        document.getElementById('quiz-result').style.display = 'block';
+        document.getElementById('result-text').innerText = score >= 3 ? "Alerta de assédio." : "Continue monitorando.";
+    }
 }
 function handleQuiz(isYes) { if (isYes) score++; currentQ++; nextQuestion(); }
-function showQuizResult() {
-    document.getElementById('quiz-content').style.display = 'none';
-    const res = document.getElementById('quiz-result');
-    res.style.display = 'block';
-    document.getElementById('result-text').innerText = score >= 3 ? "ALERTA: Sinais claros de assédio moral." : "Continue monitorando a situação.";
-}
 function resetQuiz() { startQuiz(); }
-function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
