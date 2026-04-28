@@ -1,150 +1,97 @@
 :root {
-    --primary: #040911; 
-    --secondary: #0a111e; /* Azul marinho levemente mais claro para os cards */
-    --accent: #B89650;  
-    --bg-dark: #000000; 
-    --text-main: #E2E8F0; 
-    --border: rgba(184, 150, 80, 0.25);
+    --bg-dark: #000000;
+    --card-bg: #040911; /* Azul marinho muito escuro */
+    --accent-vibrant: #FFD700; /* Amarelo/Dourado Vibrante */
+    --accent-muted: #B89650; /* Dourado Muted para textos menores */
+    --text-white: #FFFFFF;
+    --text-gray: #cbd5e1;
+    /* Variável do brilho neon amarelado */
+    --neon-glow: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+body { background-color: var(--bg-dark); color: var(--text-white); overflow: hidden; height: 100vh; width: 100vw; }
 
-/* Banner Superior */
+/* Fundo Partículas */
+#particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; }
+
+/* 1. Banner Superior */
 .security-banner {
-    background: #c2a364; /* Dourado mais sólido */
-    color: #000;
-    font-size: 11px;
-    font-weight: 700;
-    text-align: center;
-    padding: 8px 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 2000;
-    letter-spacing: 1px;
+    background: #c2a364; color: #000; font-size: 11px; font-weight: 700;
+    text-align: center; padding: 8px 0; position: fixed; top: 0; width: 100%; z-index: 2000; letter-spacing: 0.5px;
 }
+.banner-content { display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-/* Navbar */
+/* 2. Navegação Sticky */
 nav { 
-    height: 90px; 
-    display: flex; 
-    align-items: center; 
-    padding: 0 8%; 
-    background: rgba(4, 9, 17, 0.98); 
-    border-bottom: 1px solid var(--border);
-    position: sticky; 
-    top: 31px; /* Ajustado para colar abaixo do banner */
-    z-index: 1000;
+    height: 85px; display: flex; align-items: center; padding: 0 10%; 
+    background: rgba(0, 0, 0, 0.9); border-bottom: 1px solid rgba(184, 150, 80, 0.15);
+    position: sticky; top: 27px; z-index: 1000;
 }
+.logo-gold { font-family: 'Cinzel', serif; color: var(--accent-muted); font-weight: 700; font-size: 1.3rem; letter-spacing: 1px; }
+.nav-links { margin-left: auto; display: flex; gap: 25px; }
+.nav-links a { color: #fff; text-decoration: none; font-weight: 600; font-size: 12px; cursor: pointer; letter-spacing: 0.5px; }
+.nav-links a:hover { color: var(--accent-vibrant); filter: var(--neon-glow); }
 
-.logo-gold { 
-    font-family: 'Cinzel', serif; 
-    color: var(--accent); 
-    font-weight: 700; 
-    font-size: 1.4rem; 
-    letter-spacing: 1px; 
-}
+/* Conteúdo Principal */
+.main-wrapper { position: relative; z-index: 10; padding-top: 100px; width: 100%; height: 100%; display: flex; justify-content: center; overflow-y: auto; }
+.container { max-width: 1050px; width: 100%; padding: 40px 20px 100px 20px; }
 
-.nav-links { margin-left: auto; display: flex; gap: 30px; }
-.nav-links a { 
-    color: #fff; 
-    text-decoration: none;
-    font-weight: 600; 
-    font-size: 12px; 
-    transition: 0.3s; 
-    letter-spacing: 0.5px;
-}
-.nav-links a:hover { color: var(--accent); }
+/* Hero */
+.hero { text-align: center; margin-bottom: 60px; }
+.hero h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; font-weight: 800; margin-bottom: 15px; color: #fff; letter-spacing: 1px; }
+.hero p { font-size: 17px; color: var(--text-gray); font-weight: 400; }
 
-/* Hero Section */
-.hero { text-align: center; margin-bottom: 60px; padding-top: 40px; }
-.hero h1 { 
-    font-family: 'Cinzel', serif; 
-    font-size: 56px; /* Tamanho maior conforme imagem */
-    font-weight: 800;
-    color: #fff; 
-    margin-bottom: 10px;
-}
-.hero p { font-size: 18px; color: #cbd5e1; font-weight: 400; }
-
-/* Grid de Cards */
+/* 3. Grid de Cards (Horizontal) */
 .grid { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
     gap: 20px; 
-    max-width: 1100px; 
-    margin: 0 auto;
+    width: 100%;
 }
 
 .card { 
-    background: var(--secondary); 
-    padding: 45px 35px; 
-    border: 1px solid var(--border); 
-    border-radius: 6px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-between;
-    min-height: 400px;
-    text-align: left;
+    background: var(--card-bg); padding: 45px 35px; border: 1px solid rgba(184, 150, 80, 0.15); 
+    border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 400px; transition: 0.3s ease;
 }
+/* Efeito Neon nos Cards */
+.card-glow:hover { border-color: var(--accent-vibrant); box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
 
-.card h3 { 
-    font-size: 22px; 
-    margin-bottom: 15px; 
-    color: #fff; 
-}
+.card h3 { font-size: 21px; margin-bottom: 12px; color: #fff; font-weight: 700; }
+.card p { font-size: 14.5px; line-height: 1.6; color: #94a3b8; margin-bottom: 30px; font-weight: 400; }
 
-.card p { 
-    font-size: 15px; 
-    line-height: 1.6; 
-    color: #94a3b8; 
-    margin-bottom: 30px;
-}
+/* Ícones Neon */
+.icon-box { color: var(--accent-vibrant); margin-bottom: 20px; filter: var(--neon-glow); }
+.icon-box svg { width: 36px; height: 36px; stroke-width: 1.5px; }
 
-.icon-box { color: var(--accent); margin-bottom: 25px; }
-.icon-box svg { width: 38px; height: 38px; }
+/* Botões */
+.btn { padding: 16px; font-weight: 700; font-size: 12px; cursor: pointer; text-transform: uppercase; border-radius: 4px; border: none; transition: 0.3s; letter-spacing: 1px;}
+.btn-filled { background: var(--accent-muted); color: #000; }
+.btn-outline { background: transparent; border: 1px solid var(--accent-muted); color: var(--accent-muted); }
+.btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(184, 150, 80, 0.4); }
 
-/* Botões Customizados */
-.btn { 
-    padding: 16px; 
-    font-weight: 700; 
-    font-size: 13px;
-    cursor: pointer; 
-    text-transform: uppercase; 
-    border-radius: 4px; 
-    transition: 0.3s; 
+/* 4. Chatbot Sidebar (Exatamente como na imagem) */
+.chat-sidebar { 
+    position: fixed; top: 112px; right: 0; width: 330px; height: calc(100vh - 112px); 
+    background: var(--bg-dark); border-left: 1px solid rgba(184, 150, 80, 0.1); 
+    display: flex; flex-direction: column; z-index: 1500;
 }
+.chat-header { background: var(--accent-muted); color: #000; padding: 16px; font-weight: 700; font-size: 12px; display: flex; justify-content: space-between; }
+.chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #02060c; display: flex; flex-direction: column; gap: 10px; }
 
-.btn-filled { 
-    background: var(--accent); 
-    color: #000; 
-    border: none;
-}
+.msg { padding: 10px 12px; border-radius: 6px; font-size: 11px; max-width: 85%; line-height: 1.4; }
+.bot-msg { background: var(--card-bg); align-self: flex-start; color: #fff; font-weight: 400; }
+.user-msg { background: var(--accent-muted); color: #000; align-self: flex-end; font-weight: 600; }
 
-.btn-outline { 
-    background: transparent; 
-    border: 1px solid var(--accent); 
-    color: var(--accent); 
-}
+.chat-input-area { padding: 12px 15px; display: flex; gap: 8px; border-top: 1px solid rgba(184, 150, 80, 0.1); background: var(--bg-dark); }
+.chat-input-area input { flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 12px; color: #64748b; }
+.btn-send { background: transparent; border: none; color: #fff; cursor: pointer; }
 
-.btn:hover { 
-    filter: brightness(1.1); 
-    box-shadow: 0 0 15px rgba(184, 150, 80, 0.3);
+/* Widget Flutuante */
+.chat-widget { 
+    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
+    background: var(--accent-muted); border-radius: 50%; display: flex; 
+    align-items: center; justify-content: center; color: #000; 
+    cursor: pointer; z-index: 2000; box-shadow: 0 0 15px rgba(184, 150, 80, 0.5);
 }
-
-/* Footer Centralizado */
-.final-footer { 
-    margin-top: 100px; 
-    padding: 40px; 
-    text-align: center; 
-    border-top: 1px solid var(--border);
-}
-.footer-logo { 
-    font-family: 'Cinzel', serif; 
-    font-size: 14px; 
-    letter-spacing: 2px; 
-    color: #fff;
-    margin-bottom: 5px;
-}
-.final-footer p { font-size: 12px; color: #64748b; }
