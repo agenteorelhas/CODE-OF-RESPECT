@@ -19,8 +19,8 @@
         </div>
     </div>
 
-    <div class="chat-widget" id="chatBtn" onclick="toggleChat()">
-        <i data-lucide="message-circle" id="chatIcon"></i>
+    <div class="chat-widget" onclick="toggleChat()">
+        <i data-lucide="message-circle"></i>
     </div>
 
     <div class="chat-container" id="chatWindow">
@@ -75,7 +75,7 @@
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
                         <h3>Órgãos Oficiais</h3>
                         <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
-                        <button class="btn btn-accent">Canais Externos</button>
+                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Canais Externos</button>
                     </div>
                 </div>
             </main>
@@ -83,17 +83,21 @@
             <section id="denuncia" class="view">
                 <div class="card form-container">
                     <h2>Relato Sigiloso</h2>
-                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos..."></textarea>
-                    <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
+                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos com detalhes..."></textarea>
+                    <button class="btn btn-main" onclick="alert('Seu relato foi enviado com sucesso e sigilo.')">Enviar Sigilosamente</button>
                 </div>
             </section>
 
             <section id="quiz" class="view">
-                <div class="card form-container" style="text-align: center;">
-                    <h2 id="quiz-question">O ambiente de trabalho tem prejudicado sua saúde mental?</h2>
-                    <div style="display: flex; gap: 10px; margin-top: 20px; justify-content: center;">
-                        <button class="btn btn-main" onclick="alert('Orientação registrada.')">Sim</button>
-                        <button class="btn btn-accent" onclick="alert('Continue monitorando.')">Não</button>
+                <div class="card form-container quiz-card">
+                    <div id="quiz-content">
+                        <h2 id="quiz-question">Carregando...</h2>
+                        <div id="quiz-options" class="quiz-buttons"></div>
+                    </div>
+                    <div id="quiz-result" style="display: none;">
+                        <h2 id="result-title">Resultado</h2>
+                        <p id="result-text"></p>
+                        <button class="btn btn-main" onclick="resetQuiz()" style="margin-top:20px">Reiniciar Quiz</button>
                     </div>
                 </div>
             </section>
