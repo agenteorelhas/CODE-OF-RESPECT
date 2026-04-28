@@ -1,37 +1,89 @@
-<nav>
-    <div class="logo-gold">CODE OF RESPECT</div>
-    <div class="nav-links">
-        <a onclick="showView('home')">INÍCIO</a>
-        <a onclick="showView('denuncia')">DENUNCIAR</a>
-        <a onclick="showView('quiz')">AUTO AVALIAÇÃO</a>
-    </div>
-</nav>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code of Respect | Ética Corporativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+    
+    <div id="particles-js"></div>
 
-<div class="grid">
-    <div class="card">
-        <div class="card-top">
-            <div class="icon-box"><i data-lucide="gavel"></i></div>
-            <h3>Denúncia Segura</h3>
-            <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
+    <div class="security-banner">
+        <div class="banner-content">
+            <i data-lucide="shield-check" style="width:14px;"></i> 
+            AMBIENTE CRIPTOGRAFADO • CANAL 100% GRATUITO
         </div>
-        <button class="btn btn-filled" onclick="showView('denuncia')">ABRIR RELATO</button>
-    </div>
-
-    <div class="card">
-        <div class="card-top">
-            <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
-            <h3>Auto Avaliação</h3>
-            <p>Identifique se você está vivenciando uma situação de abuso.</p>
-        </div>
-        <button class="btn btn-outline" onclick="showView('quiz')">INICIAR QUIZ</button>
     </div>
 
-    <div class="card">
-        <div class="card-top">
-            <div class="icon-box"><i data-lucide="landmark"></i></div>
-            <h3>Órgãos Oficiais</h3>
-            <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
+    <nav>
+        <div class="logo-gold">CODE OF RESPECT</div>
+        <div class="nav-links">
+            <a href="#">INÍCIO</a>
+            <a href="#">DENUNCIAR</a>
+            <a href="#">AUTO AVALIAÇÃO</a>
         </div>
-        <button class="btn btn-outline">CANAIS EXTERNOS</button>
+    </nav>
+
+    <div class="main-wrapper">
+        <main class="container">
+            <section class="hero">
+                <h1>JUSTIÇA, ÉTICA E RESPEITO.</h1>
+                <p>Combate ao Assédio Moral no Meio Corporativo.</p>
+            </section>
+
+            <div class="grid">
+                <div class="card card-glow">
+                    <div class="icon-box"><i data-lucide="gavel"></i></div>
+                    <h3>Denúncia Segura</h3>
+                    <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
+                    <button class="btn btn-filled">ABRIR RELATO</button>
+                </div>
+
+                <div class="card card-glow">
+                    <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
+                    <h3>Auto Avaliação</h3>
+                    <p>Identifique se você está vivenciando uma situação de abuso.</p>
+                    <button class="btn btn-outline">INICIAR QUIZ</button>
+                </div>
+
+                <div class="card card-glow">
+                    <div class="icon-box"><i data-lucide="landmark"></i></div>
+                    <h3>Órgãos Oficiais</h3>
+                    <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
+                    <button class="btn btn-outline">CANAIS EXTERNOS</button>
+                </div>
+            </div>
+        </main>
     </div>
-</div>
+
+    <div class="chat-sidebar" id="chatWindow">
+        <div class="chat-header">
+            IA - ASSISTENTE ÉTICO
+            <i data-lucide="x" style="cursor:pointer; width:16px;"></i>
+        </div>
+        <div class="chat-messages">
+            <div class="msg bot-msg">Olá. Sou o Assistente Ético. Como posso orientá-lo hoje?</div>
+            <div class="msg bot-msg">Erro na conexão segura. Tente novamente.</div>
+            <div class="msg user-msg">sadasd</div>
+            <div class="msg bot-msg">Erro na conexão segura. Tente novamente.</div>
+            <div class="msg user-msg">asd</div>
+            <div class="msg bot-msg">Erro na conexão segura. Tente novamente.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" placeholder="Sua dúvida...">
+            <button class="btn-send"><i data-lucide="send" style="width:18px;"></i></button>
+        </div>
+    </div>
+
+    <div class="chat-widget">
+        <i data-lucide="message-circle"></i>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
