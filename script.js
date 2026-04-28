@@ -37,7 +37,7 @@ function toggleChat() {
 
 function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
 
-// --- LIGAÇÃO COM SERVER / IA (PRESERVADA) ---
+// --- LIGAÇÃO COM SERVER / IA (CORRIGIDA PARA O RENDER) ---
 async function enviarChat() {
     const input = document.getElementById('chatInput');
     const userText = input.value.trim();
@@ -50,14 +50,16 @@ async function enviarChat() {
     appendMessage('Processando...', 'bot-msg', loadingId);
 
     try {
-        const RENDER_API_URL = "SUA_URL_DO_RENDER_AQUI"; 
+        // ATENÇÃO: Quando tiver o seu link do Render, cole aqui e mantenha o "/chat" no final
+        const RENDER_API_URL = "https://code-of-respect.onrender.com"; 
+        
         const response = await fetch(RENDER_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: userText })
         });
         const data = await response.json();
-        document.getElementById(loadingId).innerText = data.response || "Sem resposta.";
+        document.getElementById(loadingId).innerText = data.text || "Sem resposta."; // Ajustado de data.response para data.text, pois seu server.js envia { text: ... }
     } catch (error) {
         document.getElementById(loadingId).innerText = "Erro na conexão segura.";
     }
