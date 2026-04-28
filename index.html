@@ -19,8 +19,8 @@
         </div>
     </div>
 
-    <div class="chat-widget" onclick="toggleChat()">
-        <i data-lucide="message-circle"></i>
+    <div class="chat-widget" id="chatBtn" onclick="toggleChat()">
+        <i data-lucide="message-circle" id="chatIcon"></i>
     </div>
 
     <div class="chat-container" id="chatWindow">
@@ -38,6 +38,7 @@
             </button>
         </div>
     </div>
+
     <div class="main-content">
         <nav>
             <div class="logo-gold">CODE OF RESPECT</div>
@@ -77,33 +78,3 @@
                         <button class="btn btn-accent">Canais Externos</button>
                     </div>
                 </div>
-            </main>
-
-            <section id="denuncia" class="view">
-                <div class="card form-container">
-                    <h2>Relato Sigiloso</h2>
-                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos com detalhes..."></textarea>
-                    <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
-                </div>
-            </section>
-
-            <section id="quiz" class="view">
-                <div class="card form-container" style="text-align: center;">
-                    <h2 id="quiz-question">O ambiente de trabalho tem prejudicado sua saúde mental?</h2>
-                    <div style="display: flex; gap: 10px; margin-top: 20px; justify-content: center;">
-                        <button class="btn btn-main" onclick="alert('Orientação registrada.')">Sim</button>
-                        <button class="btn btn-accent" onclick="alert('Continue monitorando.')">Não</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <footer class="final-footer">
-        <div class="footer-logo">CODE OF RESPECT</div>
-        <p>© 2026 - Proteção e Sigilo Absoluto.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
