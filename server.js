@@ -6,22 +6,22 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Inicializa a API
+// Conecta com a API usando a variável de ambiente do Render
+// Adicionamos a especificação da versão da API (v1) para evitar erros 404
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
 
-        // CORREÇÃO: Forçamos o modelo 'gemini-1.5-flash' sem sufixos 
-        // e garantimos que o objeto de configuração esteja correto.
-        const model = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash" 
-        });
+        // Chamada do modelo forçando a versão v1 para garantir compatibilidade
+        const model = genAI.getGenerativeModel(
+            { model: "gemini-1.5-flash" },
+            { apiVersion: 'v1' }
+        );
 
         const prompt = `Aja como o Assistente Ético do portal 'Code of Respect'. Forneça conselhos profissionais sobre ética e assédio. Pergunta: ${message}`;
 
-        // Adicionamos um timeout simples para evitar que a requisição fique pendente
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
@@ -30,18 +30,20 @@ app.post('/chat', async (req, res) => {
             throw new Error("A IA retornou uma resposta vazia.");
         }
 
+        // Resposta formatada para o seu script.js ler corretamente
         res.json({ text: text });
 
     } catch (error) {
-        // Log detalhado para você ver no painel do Render
-        console.error("ERRO DETALHADO:", error.message);
+        // Log detalhado que aparecerá no painel "Logs" do Render
+        console.error("ERRO DETALHADO NO SERVER:", error.message);
         
-        // Retornamos o erro no formato que seu script.js espera (campo 'text')
+        // Envia o erro no formato esperado pelo seu front-end
         res.status(500).json({ 
-            text: "Desculpe, tive um problema ao processar sua dúvida. Verifique se a API Key está correta ou tente novamente mais tarde." 
+            text: "Desculpe, tive um problema ao processar sua dúvida. Verifique se a API Key está correta ou se o servidor está ativo." 
         });
     }
 });
 
-const PORT = process.env.PORT || 10000; // Render usa a 10000 por padrão
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+// O Render injeta a porta automaticamente em process.env.PORT
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(`Servidor rodando com sucesso na porta ${PORT}`));
