@@ -10,8 +10,15 @@ app.post('/chat', async (req, res) => {
         const { message } = req.body;
         const apiKey = process.env.GEMINI_API_KEY;
 
-        // Chamada manual direta. Sem bibliotecas, sem erro de v1beta.
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        if (!apiKey) {
+            throw new Error("Chave de API não configurada no servidor.");
+        }
+
+        // 1. CORREÇÃO DA URL: Alterado de /v1/ para /v1beta/
+        // 2. CORREÇÃO DO MODELO: Uso do alias "-latest" para garantir a versão mais nova
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -25,11 +32,25 @@ app.post('/chat', async (req, res) => {
             throw new Error(data.error?.message || "Erro na API do Google");
         }
 
-        const aiText = data.candidates[0].content.parts[0].text;
+        // 3. PREVENÇÃO DE CRASH: Optional Chaining (?.) 
+        // Se a mensagem for barrada pelos filtros de segurança, 'content' será undefined.
+        const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (!aiText) {
+            // Verifica se a resposta foi bloqueada por motivos de segurança (Safety Ratings)
+            const finishReason = data.candidates?.[0]?.finishReason;
+            if (finishReason === 'SAFETY') {
+                return res.json({ text: "Desculpe, não posso responder a essa solicitação devido às políticas de segurança." });
+            }
+            throw new Error("Resposta da IA veio em um formato inesperado.");
+        }
+
         res.json({ text: aiText });
 
     } catch (error) {
         console.error("ERRO NO RENDER:", error.message);
+        // Opcional: Não vazar o erro exato da API para o frontend em produção, 
+        // mas útil manter para debug por enquanto.
         res.status(500).json({ text: "Erro técnico: " + error.message });
     }
 });
