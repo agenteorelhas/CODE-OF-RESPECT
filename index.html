@@ -1,110 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code of Respect | Ética Corporativa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-</head>
-<body>
-    <div id="particles-js"></div>
+<nav>
+    <div class="logo-gold">CODE OF RESPECT</div>
+    <div class="nav-links">
+        <a onclick="showView('home')">INÍCIO</a>
+        <a onclick="showView('denuncia')">DENUNCIAR</a>
+        <a onclick="showView('quiz')">AUTO AVALIAÇÃO</a>
+    </div>
+</nav>
 
-    <div class="security-banner">
-        <div class="banner-content">
-            <i data-lucide="shield-check" style="width:14px;"></i> 
-            AMBIENTE CRIPTOGRAFADO • CANAL 100% GRATUITO
+<div class="grid">
+    <div class="card">
+        <div class="card-top">
+            <div class="icon-box"><i data-lucide="gavel"></i></div>
+            <h3>Denúncia Segura</h3>
+            <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
         </div>
+        <button class="btn btn-filled" onclick="showView('denuncia')">ABRIR RELATO</button>
     </div>
 
-    <div class="chat-widget" onclick="toggleChat()">
-        <i data-lucide="message-circle"></i>
+    <div class="card">
+        <div class="card-top">
+            <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
+            <h3>Auto Avaliação</h3>
+            <p>Identifique se você está vivenciando uma situação de abuso.</p>
+        </div>
+        <button class="btn btn-outline" onclick="showView('quiz')">INICIAR QUIZ</button>
     </div>
 
-    <div class="chat-container" id="chatWindow">
-        <div class="chat-header">
-            <span>IA - ASSISTENTE ÉTICO</span>
-            <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer; width:18px;"></i>
+    <div class="card">
+        <div class="card-top">
+            <div class="icon-box"><i data-lucide="landmark"></i></div>
+            <h3>Órgãos Oficiais</h3>
+            <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="msg bot-msg">Olá. Sou o Assistente Ético. Como posso orientá-lo hoje?</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Sua dúvida..." onkeypress="handleKeyPress(event)">
-            <button class="btn-send" onclick="enviarChat()">
-                <i data-lucide="send" style="width:18px;"></i>
-            </button>
-        </div>
+        <button class="btn btn-outline">CANAIS EXTERNOS</button>
     </div>
-
-    <div class="main-content">
-        <nav>
-            <div class="logo-gold">⚖ CODE OF RESPECT</div>
-            <div class="nav-links">
-                <a onclick="showView('home')">Início</a>
-                <a onclick="showView('denuncia')">Denunciar</a>
-                <a onclick="showView('quiz')">Auto Avaliação</a>
-            </div>
-        </nav>
-
-        <div class="container">
-            <main id="home" class="view active">
-                <section class="hero">
-                    <h1>Justiça, Ética e Respeito.</h1>
-                    <p>Combate ao Assédio Moral no Meio Corporativo.</p>
-                </section>
-
-                <div class="grid">
-                    <div class="card">
-                        <div class="icon-box"><i data-lucide="gavel"></i></div>
-                        <h3>Denúncia Segura</h3>
-                        <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
-                        <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
-                    </div>
-
-                    <div class="card">
-                        <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
-                        <h3>Auto Avaliação</h3>
-                        <p>Identifique se você está vivenciando uma situação de abuso.</p>
-                        <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
-                    </div>
-
-                    <div class="card">
-                        <div class="icon-box"><i data-lucide="landmark"></i></div>
-                        <h3>Órgãos Oficiais</h3>
-                        <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
-                        <button class="btn btn-accent">Canais Externos</button>
-                    </div>
-                </div>
-            </main>
-
-            <section id="denuncia" class="view">
-                <div class="card form-container">
-                    <h2>Relato Sigiloso</h2>
-                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos com detalhes..."></textarea>
-                    <button class="btn btn-main" onclick="enviarRelato()">Enviar Sigilosamente</button>
-                </div>
-            </section>
-
-            <section id="quiz" class="view">
-                <div class="card form-container" style="text-align: center;">
-                    <h2 id="quiz-question">O ambiente de trabalho tem prejudicado sua saúde mental?</h2>
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-main" onclick="alert('Orientação registrada.')">Sim</button>
-                        <button class="btn btn-accent" onclick="alert('Continue monitorando.')">Não</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <footer class="final-footer">
-        <div class="footer-logo">CODE OF RESPECT</div>
-        <p>© 2026 - Proteção e Sigilo Absoluto.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
