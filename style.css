@@ -1,93 +1,150 @@
 :root {
-    --primary: #040911; --secondary: #080f1d; --accent: #B89650; 
-    --bg-dark: #000000; --text-main: #E2E8F0; --border: rgba(184, 150, 80, 0.2);
+    --primary: #040911; 
+    --secondary: #0a111e; /* Azul marinho levemente mais claro para os cards */
+    --accent: #B89650;  
+    --bg-dark: #000000; 
+    --text-main: #E2E8F0; 
+    --border: rgba(184, 150, 80, 0.25);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
 
-/* Partículas Neon Douradas */
-#particles-js { 
-    position: fixed; width: 100%; height: 100%; z-index: 0; 
-    pointer-events: none; opacity: 0.7;
-    filter: drop-shadow(0 0 8px var(--accent));
-}
-
-/* Banner de Segurança Fixo */
+/* Banner Superior */
 .security-banner {
-    background: var(--accent); color: var(--primary);
-    font-size: 0.7rem; font-weight: 800; text-align: center;
-    padding: 10px 0; position: fixed; top: 0; width: 100%; z-index: 2000;
-    box-shadow: 0 2px 15px rgba(184, 150, 80, 0.4);
+    background: #c2a364; /* Dourado mais sólido */
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
+    letter-spacing: 1px;
 }
-.banner-content { display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-.main-content { position: relative; z-index: 10; padding-top: 50px; }
-
+/* Navbar */
 nav { 
-    height: 80px; display: flex; align-items: center; padding: 0 5%; 
-    background: rgba(4, 9, 17, 0.95); border-bottom: 1px solid var(--border);
-    position: sticky; top: 35px; z-index: 1000; backdrop-filter: blur(10px);
+    height: 90px; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 8%; 
+    background: rgba(4, 9, 17, 0.98); 
+    border-bottom: 1px solid var(--border);
+    position: sticky; 
+    top: 31px; /* Ajustado para colar abaixo do banner */
+    z-index: 1000;
 }
-.logo-gold { font-family: 'Cinzel', serif; color: var(--accent); font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
-.nav-links { margin-left: auto; display: flex; gap: 25px; }
-.nav-links a { color: white; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; }
+
+.logo-gold { 
+    font-family: 'Cinzel', serif; 
+    color: var(--accent); 
+    font-weight: 700; 
+    font-size: 1.4rem; 
+    letter-spacing: 1px; 
+}
+
+.nav-links { margin-left: auto; display: flex; gap: 30px; }
+.nav-links a { 
+    color: #fff; 
+    text-decoration: none;
+    font-weight: 600; 
+    font-size: 12px; 
+    transition: 0.3s; 
+    letter-spacing: 0.5px;
+}
 .nav-links a:hover { color: var(--accent); }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 4rem 5%; }
-.hero { text-align: center; margin-bottom: 4rem; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: #fff; text-shadow: 0 0 15px rgba(184, 150, 80, 0.2); }
+/* Hero Section */
+.hero { text-align: center; margin-bottom: 60px; padding-top: 40px; }
+.hero h1 { 
+    font-family: 'Cinzel', serif; 
+    font-size: 56px; /* Tamanho maior conforme imagem */
+    font-weight: 800;
+    color: #fff; 
+    margin-bottom: 10px;
+}
+.hero p { font-size: 18px; color: #cbd5e1; font-weight: 400; }
 
-/* Grid Alinhada Horizontalmente */
+/* Grid de Cards */
 .grid { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
-    gap: 25px; 
-    width: 100%;
+    gap: 20px; 
+    max-width: 1100px; 
+    margin: 0 auto;
 }
-
-@media (max-width: 950px) { .grid { grid-template-columns: 1fr; } }
 
 .card { 
-    background: var(--secondary); padding: 35px; border: 1px solid var(--border); border-radius: 8px; 
-    display: flex; flex-direction: column; justify-content: space-between;
-    transition: 0.4s ease; min-height: 350px;
+    background: var(--secondary); 
+    padding: 45px 35px; 
+    border: 1px solid var(--border); 
+    border-radius: 6px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    min-height: 400px;
+    text-align: left;
 }
-.card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-.icon-box { color: var(--accent); margin-bottom: 20px; filter: drop-shadow(0 0 5px var(--accent)); }
-.icon-box svg { width: 45px; height: 45px; }
-
-.btn { border: none; padding: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: 0.3s; }
-.btn-main { background: var(--accent); color: var(--primary); width: 100%; }
-.btn-accent { background: transparent; border: 1px solid var(--accent); color: var(--accent); width: 100%; }
-.btn:hover { filter: brightness(1.2); letter-spacing: 1px; }
-
-/* CHATBOT */
-.chat-widget { 
-    position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; 
-    background: var(--accent); border-radius: 50%; display: flex; 
-    align-items: center; justify-content: center; color: var(--primary); 
-    cursor: pointer; z-index: 2500; box-shadow: 0 0 20px var(--accent);
+.card h3 { 
+    font-size: 22px; 
+    margin-bottom: 15px; 
+    color: #fff; 
 }
-.chat-container { 
-    position: fixed; bottom: 105px; right: 30px; width: 340px; height: 480px; 
-    background: var(--primary); border: 1px solid var(--border); 
-    display: none; flex-direction: column; z-index: 2501; border-radius: 12px; overflow: hidden;
+
+.card p { 
+    font-size: 15px; 
+    line-height: 1.6; 
+    color: #94a3b8; 
+    margin-bottom: 30px;
 }
-.chat-header { background: var(--accent); color: var(--primary); padding: 18px; font-weight: 800; display: flex; justify-content: space-between; }
-.chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #02060c; display: flex; flex-direction: column; gap: 12px; }
-.msg { padding: 12px; border-radius: 8px; font-size: 0.85rem; max-width: 85%; line-height: 1.5; }
-.bot-msg { background: var(--secondary); align-self: flex-start; border-left: 4px solid var(--accent); color: #fff; }
-.user-msg { background: var(--accent); color: var(--primary); align-self: flex-end; font-weight: 600; }
-.chat-input-area { padding: 15px; display: flex; gap: 10px; border-top: 1px solid var(--border); background: var(--primary); }
-.chat-input-area input { flex: 1; background: transparent; border: none; color: white; outline: none; }
 
-.view { display: none; }
-.view.active { display: block; animation: fadeIn 0.5s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.icon-box { color: var(--accent); margin-bottom: 25px; }
+.icon-box svg { width: 38px; height: 38px; }
 
-.form-container { max-width: 600px; margin: 0 auto; }
-textarea { width: 100%; background: #02060c; border: 1px solid var(--border); color: white; padding: 15px; border-radius: 4px; margin-bottom: 20px; outline: none; font-size: 1rem; }
+/* Botões Customizados */
+.btn { 
+    padding: 16px; 
+    font-weight: 700; 
+    font-size: 13px;
+    cursor: pointer; 
+    text-transform: uppercase; 
+    border-radius: 4px; 
+    transition: 0.3s; 
+}
 
-.final-footer { padding: 60px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 80px; background: #02060c; }
+.btn-filled { 
+    background: var(--accent); 
+    color: #000; 
+    border: none;
+}
+
+.btn-outline { 
+    background: transparent; 
+    border: 1px solid var(--accent); 
+    color: var(--accent); 
+}
+
+.btn:hover { 
+    filter: brightness(1.1); 
+    box-shadow: 0 0 15px rgba(184, 150, 80, 0.3);
+}
+
+/* Footer Centralizado */
+.final-footer { 
+    margin-top: 100px; 
+    padding: 40px; 
+    text-align: center; 
+    border-top: 1px solid var(--border);
+}
+.footer-logo { 
+    font-family: 'Cinzel', serif; 
+    font-size: 14px; 
+    letter-spacing: 2px; 
+    color: #fff;
+    margin-bottom: 5px;
+}
+.final-footer p { font-size: 12px; color: #64748b; }
