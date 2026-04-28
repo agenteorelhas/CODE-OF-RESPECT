@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="content-wrapper">
         <nav>
             <div class="logo-gold">CODE OF RESPECT</div>
             <div class="nav-links">
@@ -55,7 +55,6 @@
                     <h1>Justiça, Ética e Respeito.</h1>
                     <p>Combate ao Assédio Moral no Meio Corporativo.</p>
                 </section>
-
                 <div class="grid">
                     <div class="card card-glow">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
@@ -63,14 +62,12 @@
                         <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
                         <button class="btn btn-main" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
-
                     <div class="card card-glow">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
                         <p>Identifique se você está vivenciando uma situação de abuso.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
-
                     <div class="card card-glow">
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
                         <h3>Órgãos Oficiais</h3>
@@ -83,25 +80,28 @@
             <section id="denuncia" class="view">
                 <div class="card form-container">
                     <h2>Relato Sigiloso</h2>
-                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos com detalhes..."></textarea>
-                    <button class="btn btn-main" onclick="alert('Seu relato foi enviado com sucesso e sigilo.')">Enviar Sigilosamente</button>
+                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos detalhadamente..."></textarea>
+                    <button class="btn btn-main" onclick="salvarDenuncia()" style="margin-top:15px;">Enviar Sigilosamente</button>
                 </div>
+                <h3 style="margin-top:40px; color:var(--accent-muted); font-family:'Cinzel';">Relatos Registrados</h3>
+                <div id="listaDenuncias" class="grid" style="margin-top: 20px;"></div>
             </section>
 
             <section id="quiz" class="view">
-                <div class="card form-container quiz-card">
+                <div class="card form-container">
                     <div id="quiz-content">
-                        <h2 id="quiz-question">Carregando...</h2>
-                        <div id="quiz-options" class="quiz-buttons"></div>
+                        <h2 id="quiz-question" style="margin-bottom:20px;">Carregando...</h2>
+                        <div id="quiz-options" style="display:flex; gap:10px; justify-content:center;"></div>
                     </div>
-                    <div id="quiz-result" style="display: none;">
-                        <h2 id="result-title">Resultado</h2>
-                        <p id="result-text"></p>
-                        <button class="btn btn-main" onclick="resetQuiz()" style="margin-top:20px">Reiniciar Quiz</button>
+                    <div id="quiz-result" style="display: none; text-align: center;">
+                        <h2>Resultado</h2>
+                        <p id="result-text" style="margin:20px 0;"></p>
+                        <button class="btn btn-main" onclick="resetQuiz()">Reiniciar Quiz</button>
                     </div>
                 </div>
             </section>
         </div>
+        <div class="sticky-footer-spacer"></div>
     </div>
 
     <footer class="final-footer">
