@@ -50,7 +50,7 @@ async function enviarChat() {
     appendMessage('Processando...', 'bot-msg', loadingId);
 
     try {
-        const RENDER_API_URL = "https://seu-link-aqui.onrender.com/chat"; 
+        const RENDER_API_URL = "https://code-of-respect.onrender.com/chat"; 
         const response = await fetch(RENDER_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
