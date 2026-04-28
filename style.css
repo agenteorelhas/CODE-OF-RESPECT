@@ -1,12 +1,11 @@
 :root {
     --bg-dark: #000000;
-    --card-bg: rgba(4, 9, 17, 0.9); /* Ligeiramente transparente para mostrar as partículas */
-    --accent-vibrant: #FFD700; /* Neon Amarelo/Dourado */
-    --accent-muted: #B89650; /* Dourado Muted para textos menores e botões filled */
+    --card-bg: #040911; /* Alterado de rgba para sólido conforme solicitado */
+    --accent-vibrant: #FFD700; 
+    --accent-muted: #B89650;
     --text-white: #FFFFFF;
-    --border: rgba(184, 150, 80, 0.15);
-    /* Variável do brilho neon amarelado */
-    --neon-glow: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)); 
+    --border: rgba(184, 150, 80, 0.2);
+    --neon-glow: drop-shadow(0 0 12px rgba(255, 215, 0, 0.9)); 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -47,8 +46,17 @@ nav {
 @media (max-width: 950px) { .grid { grid-template-columns: 1fr; } }
 
 .card { 
-    background: var(--card-bg); padding: 45px 35px; border: 1px solid var(--border); border-radius: 4px; 
-    display: flex; flex-direction: column; justify-content: space-between; transition: 0.4s ease; min-height: 400px;
+    background: var(--card-bg); /* Sólido e opaco */
+    padding: 45px 35px; 
+    border: 1px solid var(--border); 
+    border-radius: 6px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+    min-height: 400px;
+    position: relative;
+    z-index: 5;
 }
 .card h3 { font-size: 21px; margin-bottom: 15px; color: #fff; font-weight: 700; }
 .card p { font-size: 14.5px; line-height: 1.6; color: #94a3b8; margin-bottom: 30px; }
