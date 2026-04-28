@@ -1,97 +1,96 @@
 :root {
     --bg-dark: #000000;
-    --card-bg: #040911; /* Azul marinho muito escuro */
-    --accent-vibrant: #FFD700; /* Amarelo/Dourado Vibrante */
-    --accent-muted: #B89650; /* Dourado Muted para textos menores */
+    --card-bg: #040911; 
+    --accent-vibrant: #FFD700; /* Neon Amarelo/Dourado */
+    --accent-muted: #B89650;
     --text-white: #FFFFFF;
-    --text-gray: #cbd5e1;
-    /* Variável do brilho neon amarelado */
+    --border: rgba(184, 150, 80, 0.2);
     --neon-glow: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background-color: var(--bg-dark); color: var(--text-white); overflow: hidden; height: 100vh; width: 100vw; }
+body { background-color: var(--bg-dark); color: var(--text-white); overflow-x: hidden; }
 
 /* Fundo Partículas */
-#particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; }
+#particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-/* 1. Banner Superior */
+/* Banner de Segurança */
 .security-banner {
-    background: #c2a364; color: #000; font-size: 11px; font-weight: 700;
-    text-align: center; padding: 8px 0; position: fixed; top: 0; width: 100%; z-index: 2000; letter-spacing: 0.5px;
+    background: #c2a364; color: #000; font-size: 11px; font-weight: 800; text-align: center;
+    padding: 10px 0; position: fixed; top: 0; width: 100%; z-index: 2000; letter-spacing: 1px;
 }
-.banner-content { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.banner-content { display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-/* 2. Navegação Sticky */
+.main-content { position: relative; z-index: 10; padding-top: 50px; }
+
+/* Nav */
 nav { 
-    height: 85px; display: flex; align-items: center; padding: 0 10%; 
-    background: rgba(0, 0, 0, 0.9); border-bottom: 1px solid rgba(184, 150, 80, 0.15);
-    position: sticky; top: 27px; z-index: 1000;
+    height: 85px; display: flex; align-items: center; padding: 0 5%; 
+    background: rgba(4, 9, 17, 0.95); border-bottom: 1px solid var(--border);
+    position: sticky; top: 35px; z-index: 1000; backdrop-filter: blur(10px);
 }
-.logo-gold { font-family: 'Cinzel', serif; color: var(--accent-muted); font-weight: 700; font-size: 1.3rem; letter-spacing: 1px; }
+.logo-gold { font-family: 'Cinzel', serif; color: var(--accent-muted); font-weight: 800; font-size: 1.3rem; letter-spacing: 2px; }
 .nav-links { margin-left: auto; display: flex; gap: 25px; }
-.nav-links a { color: #fff; text-decoration: none; font-weight: 600; font-size: 12px; cursor: pointer; letter-spacing: 0.5px; }
+.nav-links a { color: white; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; }
 .nav-links a:hover { color: var(--accent-vibrant); filter: var(--neon-glow); }
 
-/* Conteúdo Principal */
-.main-wrapper { position: relative; z-index: 10; padding-top: 100px; width: 100%; height: 100%; display: flex; justify-content: center; overflow-y: auto; }
-.container { max-width: 1050px; width: 100%; padding: 40px 20px 100px 20px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 4rem 5%; }
 
 /* Hero */
 .hero { text-align: center; margin-bottom: 60px; }
-.hero h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; font-weight: 800; margin-bottom: 15px; color: #fff; letter-spacing: 1px; }
-.hero p { font-size: 17px; color: var(--text-gray); font-weight: 400; }
+.hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: #fff; text-shadow: 0 0 15px rgba(184, 150, 80, 0.2); margin-bottom: 10px; }
+.hero p { font-size: 18px; color: #cbd5e1; }
 
-/* 3. Grid de Cards (Horizontal) */
-.grid { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; 
-    width: 100%;
-}
+/* Grid Alinhada Horizontalmente */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; }
+@media (max-width: 950px) { .grid { grid-template-columns: 1fr; } }
 
 .card { 
-    background: var(--card-bg); padding: 45px 35px; border: 1px solid rgba(184, 150, 80, 0.15); 
-    border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;
-    min-height: 400px; transition: 0.3s ease;
+    background: var(--card-bg); padding: 35px; border: 1px solid var(--border); border-radius: 8px; 
+    display: flex; flex-direction: column; justify-content: space-between; transition: 0.4s ease; min-height: 350px;
 }
-/* Efeito Neon nos Cards */
-.card-glow:hover { border-color: var(--accent-vibrant); box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+.card-glow:hover { border-color: var(--accent-vibrant); box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); transform: translateY(-5px); }
 
-.card h3 { font-size: 21px; margin-bottom: 12px; color: #fff; font-weight: 700; }
-.card p { font-size: 14.5px; line-height: 1.6; color: #94a3b8; margin-bottom: 30px; font-weight: 400; }
+.card h3 { font-size: 21px; margin-bottom: 15px; color: #fff; font-weight: 700; }
+.card p { font-size: 15px; line-height: 1.6; color: #94a3b8; margin-bottom: 30px; }
 
-/* Ícones Neon */
 .icon-box { color: var(--accent-vibrant); margin-bottom: 20px; filter: var(--neon-glow); }
-.icon-box svg { width: 36px; height: 36px; stroke-width: 1.5px; }
+.icon-box svg { width: 45px; height: 45px; }
 
 /* Botões */
-.btn { padding: 16px; font-weight: 700; font-size: 12px; cursor: pointer; text-transform: uppercase; border-radius: 4px; border: none; transition: 0.3s; letter-spacing: 1px;}
-.btn-filled { background: var(--accent-muted); color: #000; }
-.btn-outline { background: transparent; border: 1px solid var(--accent-muted); color: var(--accent-muted); }
+.btn { border: none; padding: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: 0.3s; }
+.btn-main { background: var(--accent-muted); color: var(--bg-dark); width: 100%; }
+.btn-accent { background: transparent; border: 1px solid var(--accent-muted); color: var(--accent-muted); width: 100%; }
 .btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(184, 150, 80, 0.4); }
 
-/* 4. Chatbot Sidebar (Exatamente como na imagem) */
-.chat-sidebar { 
-    position: fixed; top: 112px; right: 0; width: 330px; height: calc(100vh - 112px); 
-    background: var(--bg-dark); border-left: 1px solid rgba(184, 150, 80, 0.1); 
-    display: flex; flex-direction: column; z-index: 1500;
+/* CHATBOT (Visual Atualizado, Lógica de display mantida) */
+.chat-widget { 
+    position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; 
+    background: var(--accent-muted); border-radius: 50%; display: flex; 
+    align-items: center; justify-content: center; color: var(--bg-dark); 
+    cursor: pointer; z-index: 2500; box-shadow: 0 0 20px rgba(184, 150, 80, 0.5);
 }
-.chat-header { background: var(--accent-muted); color: #000; padding: 16px; font-weight: 700; font-size: 12px; display: flex; justify-content: space-between; }
-.chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #02060c; display: flex; flex-direction: column; gap: 10px; }
-
-.msg { padding: 10px 12px; border-radius: 6px; font-size: 11px; max-width: 85%; line-height: 1.4; }
-.bot-msg { background: var(--card-bg); align-self: flex-start; color: #fff; font-weight: 400; }
+.chat-container { 
+    position: fixed; bottom: 105px; right: 30px; width: 340px; height: 480px; 
+    background: var(--card-bg); border: 1px solid var(--border); 
+    display: none; flex-direction: column; z-index: 2501; border-radius: 12px; overflow: hidden;
+}
+.chat-header { background: var(--accent-muted); color: #000; padding: 18px; font-weight: 800; display: flex; justify-content: space-between; font-size: 13px;}
+.chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #02060c; display: flex; flex-direction: column; gap: 12px; }
+.msg { padding: 12px; border-radius: 8px; font-size: 0.85rem; max-width: 85%; line-height: 1.5; }
+.bot-msg { background: var(--bg-dark); align-self: flex-start; border-left: 4px solid var(--accent-vibrant); color: #fff; }
 .user-msg { background: var(--accent-muted); color: #000; align-self: flex-end; font-weight: 600; }
-
-.chat-input-area { padding: 12px 15px; display: flex; gap: 8px; border-top: 1px solid rgba(184, 150, 80, 0.1); background: var(--bg-dark); }
-.chat-input-area input { flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 12px; color: #64748b; }
+.chat-input-area { padding: 15px; display: flex; gap: 10px; border-top: 1px solid var(--border); background: var(--bg-dark); }
+.chat-input-area input { flex: 1; background: transparent; border: none; color: white; outline: none; }
 .btn-send { background: transparent; border: none; color: #fff; cursor: pointer; }
 
-/* Widget Flutuante */
-.chat-widget { 
-    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
-    background: var(--accent-muted); border-radius: 50%; display: flex; 
-    align-items: center; justify-content: center; color: #000; 
-    cursor: pointer; z-index: 2000; box-shadow: 0 0 15px rgba(184, 150, 80, 0.5);
-}
+/* Views Dinâmicas da sua Lógica */
+.view { display: none; }
+.view.active { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.form-container { max-width: 600px; margin: 0 auto; padding: 40px;}
+textarea { width: 100%; background: #02060c; border: 1px solid var(--border); color: white; padding: 15px; border-radius: 4px; margin-bottom: 20px; outline: none; font-size: 1rem; }
+
+.final-footer { padding: 60px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 80px; background: #02060c; }
+.footer-logo { font-family: 'Cinzel', serif; color: var(--accent-muted); letter-spacing: 1px; margin-bottom: 10px;}
