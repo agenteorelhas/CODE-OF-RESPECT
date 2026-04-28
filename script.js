@@ -51,7 +51,7 @@ async function enviarChat() {
 
     try {
         // ATENÇÃO: Quando tiver o seu link do Render, cole aqui e mantenha o "/chat" no final
-        const RENDER_API_URL = "https://code-of-respect.onrender.com"; 
+        const RENDER_API_URL = "https://code-of-respect.onrender.com/chat"; 
         
         const response = await fetch(RENDER_API_URL, {
             method: 'POST',
