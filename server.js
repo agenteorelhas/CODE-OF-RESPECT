@@ -6,15 +6,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Inicializa a API com a sua chave do Render
+// Inicializa a API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
 
-        // Mudança para o modelo 1.0 Pro - O mais estável para a região de Ohio
-        const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
+        // CORREÇÃO CRÍTICA: Forçamos a apiVersion 'v1' como segundo argumento
+        // Isso remove o 'v1beta' da URL e resolve o erro 404 em Ohio
+        const model = genAI.getGenerativeModel(
+            { model: "gemini-1.5-flash" }, 
+            { apiVersion: 'v1' }
+        );
 
         const prompt = `Aja como o Assistente Ético do portal 'Code of Respect'. Forneça conselhos profissionais sobre ética e assédio. Pergunta: ${message}`;
 
@@ -22,15 +26,14 @@ app.post('/chat', async (req, res) => {
         const response = await result.response;
         const text = response.text();
 
-        // Retorna o texto para o seu script.js
         res.json({ text: text });
 
     } catch (error) {
-        console.error("ERRO NO GOOGLE AI:", error.message);
+        console.error("ERRO NO SERVIDOR:", error.message);
         
-        // Retorna o erro detalhado para o chat para sabermos o que houve
+        // Retorna o erro amigável para o chat
         res.status(500).json({ 
-            text: "Erro na IA: " + error.message 
+            text: "Erro técnico na IA: " + error.message 
         });
     }
 });
