@@ -47,12 +47,11 @@ app.post('/chat', async (req, res) => {
 
         res.json({ text: aiText });
 
-    } catch (error) {
-        console.error("ERRO NO RENDER:", error.message);
-        // Opcional: Não vazar o erro exato da API para o frontend em produção, 
-        // mas útil manter para debug por enquanto.
-        res.status(500).json({ text: "Erro técnico: " + error.message });
-    }
+  // ... código ...
+} catch (error) {
+    console.error("ERRO TESTE:", error.message);
+    res.status(500).json({ text: "ABACAXI: " + error.message });
+}
 });
 
 const PORT = process.env.PORT || 10000;
