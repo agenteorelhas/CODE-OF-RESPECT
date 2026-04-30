@@ -50,7 +50,7 @@ app.post('/chat', async (req, res) => {
   // ... código ...
 } catch (error) {
     console.error("ERRO TESTE:", error.message);
-    res.status(500).json({ text: "ABACAXI: " + error.message });
+    res.status(500).json({ text: "ERROR: " + error.message });
 }
 });
 
