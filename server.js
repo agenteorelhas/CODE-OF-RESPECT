@@ -10,13 +10,18 @@ app.post('/chat', async (req, res) => {
         const { message } = req.body;
         const apiKey = process.env.GEMINI_API_KEY;
 
+        // Adicionado: Prevenção contra requisições vazias (ajuda a economizar quota da API)
+        if (!message) {
+            return res.status(400).json({ text: "Erro: A mensagem enviada está vazia." });
+        }
+
         if (!apiKey) {
             throw new Error("Chave de API não configurada no servidor.");
         }
 
-        // 1. CORREÇÃO DA URL: Alterado de /v1/ para /v1beta/
-        // 2. CORREÇÃO DO MODELO: Uso do alias "-latest" para garantir a versão mais nova
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+        // 1. CORREÇÃO DA URL: Alterado para a versão estável /v1/
+        // 2. CORREÇÃO DO MODELO: Removido o "-latest" para garantir compatibilidade e evitar o erro "not found"
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(url, {
             method: 'POST',
@@ -47,11 +52,11 @@ app.post('/chat', async (req, res) => {
 
         res.json({ text: aiText });
 
-  // ... código ...
-} catch (error) {
-    console.error("ERRO TESTE:", error.message);
-    res.status(500).json({ text: "ERROR: " + error.message });
-}
+    // AJUSTE CRÍTICO: Adicionada a chave "}" que estava faltando para fechar o bloco "try"
+    } catch (error) {
+        console.error("ERRO TESTE:", error.message);
+        res.status(500).json({ text: "ERROR: " + error.message });
+    }
 });
 
 const PORT = process.env.PORT || 10000;
