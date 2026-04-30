@@ -35,7 +35,9 @@ function toggleChat() {
     chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
 }
 
-function handleKeyPress(e) { if (e.key === 'Enter') enviarChat(); }
+function handleKeyPress(e) { 
+    if (e.key === 'Enter') enviarChat(); 
+}
 
 // --- LIGAÇÃO COM SERVER / IA (CORRIGIDA) ---
 async function enviarChat() {
@@ -51,6 +53,8 @@ async function enviarChat() {
 
     try {
         const RENDER_API_URL = "https://code-of-respect.onrender.com/chat"; 
+        
+        // CORREÇÃO: Usando a variável RENDER_API_URL corretamente no fetch
         const response = await fetch(RENDER_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -59,17 +63,21 @@ async function enviarChat() {
         
         const data = await response.json();
         
+        const loadingElement = document.getElementById(loadingId);
         if (data.text) {
-            document.getElementById(loadingId).innerText = data.text;
+            loadingElement.innerText = data.text;
         } else {
-            document.getElementById(loadingId).innerText = "A IA não retornou um texto.";
+            loadingElement.innerText = "A IA não retornou um texto.";
         }
 
     } catch (error) {
         console.error("Erro na requisição:", error);
-        document.getElementById(loadingId).innerText = "Erro na conexão segura.";
+        const loadingElement = document.getElementById(loadingId);
+        if (loadingElement) {
+            loadingElement.innerText = "Erro na conexão segura.";
+        }
     }
-} // <--- ESTA CHAVE ESTAVA FALTANDO PARA FECHAR A FUNÇÃO enviarChat
+} 
 
 function appendMessage(text, className, id = '') {
     const messages = document.getElementById('chatMessages');
@@ -80,6 +88,7 @@ function appendMessage(text, className, id = '') {
     messages.appendChild(msgDiv);
     messages.scrollTop = messages.scrollHeight;
 }
+
 // Funções de Denúncia (Registro em Cards)
 function salvarDenuncia() {
     const texto = document.getElementById('relatoTexto').value.trim();
@@ -102,19 +111,38 @@ function renderizarDenuncias() {
         </div>`).join('');
 }
 
-// Lógica do Quiz (MANTIDA)
+// Lógica do Quiz
 const questions = ["Críticas humilhantes?", "Tarefas boicotadas?", "Agressões verbais?", "Danos à saúde mental?"];
 let currentQ = 0, score = 0;
-function startQuiz() { currentQ = 0; score = 0; document.getElementById('quiz-result').style.display = 'none'; document.getElementById('quiz-content').style.display = 'block'; nextQuestion(); }
+
+function startQuiz() { 
+    currentQ = 0; 
+    score = 0; 
+    document.getElementById('quiz-result').style.display = 'none'; 
+    document.getElementById('quiz-content').style.display = 'block'; 
+    nextQuestion(); 
+}
+
 function nextQuestion() {
     if (currentQ < questions.length) {
         document.getElementById('quiz-question').innerText = questions[currentQ];
-        document.getElementById('quiz-options').innerHTML = `<button class="btn btn-main" onclick="handleQuiz(true)">Sim</button><button class="btn btn-accent" onclick="handleQuiz(false)">Não</button>`;
+        document.getElementById('quiz-options').innerHTML = `
+            <button class="btn btn-main" onclick="handleQuiz(true)">Sim</button>
+            <button class="btn btn-accent" onclick="handleQuiz(false)">Não</button>
+        `;
     } else {
         document.getElementById('quiz-content').style.display = 'none';
         document.getElementById('quiz-result').style.display = 'block';
         document.getElementById('result-text').innerText = score >= 3 ? "Alerta de assédio." : "Continue monitorando.";
     }
 }
-function handleQuiz(isYes) { if (isYes) score++; currentQ++; nextQuestion(); }
-function resetQuiz() { startQuiz(); }
+
+function handleQuiz(isYes) { 
+    if (isYes) score++; 
+    currentQ++; 
+    nextQuestion(); 
+}
+
+function resetQuiz() { 
+    startQuiz(); 
+}
