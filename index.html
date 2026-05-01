@@ -3,23 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Code of Respect | Ética Corporativa</title>
+    
+    <!-- Fontes e Estilos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Bibliotecas Externas -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
+    <!-- Background Animado -->
     <div id="particles-js"></div>
 
-    <div class="security-banner">
+    <!-- Barra de Segurança -->
+    <header class="security-banner">
         <div class="banner-content">
             <i data-lucide="shield-check" style="width:14px;"></i> 
-            AMBIENTE CRIPTOGRAFADO • CANAL 100% GRATUITO
+            AMBIENTE CRIPTOGRAFADO • CANAL 100% SEGURO E PRIVADO
         </div>
-    </div>
+    </header>
 
-    <div class="chat-widget" onclick="toggleChat()">
+    <!-- Chat Flutuante -->
+    <div class="chat-widget" onclick="toggleChat()" aria-label="Abrir assistente ético">
         <i data-lucide="message-circle"></i>
     </div>
 
@@ -29,7 +39,7 @@
             <i data-lucide="x" onclick="toggleChat()" style="cursor:pointer; width:18px;"></i>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="msg bot-msg">Olá. Sou o Assistente Ético. Como posso orientá-lo hoje?</div>
+            <div class="msg bot-msg">Olá. Sou o Assistente Ético. Como posso orientá-lo sobre conduta e direitos hoje?</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="chatInput" placeholder="Sua dúvida..." onkeypress="handleKeyPress(event)">
@@ -43,72 +53,89 @@
         <nav>
             <div class="logo-gold">CODE OF RESPECT</div>
             <div class="nav-links">
-                <a onclick="showView('home')">Início</a>
-                <a onclick="showView('denuncia')">Denunciar</a>
-                <a onclick="showView('quiz')">Auto Avaliação</a>
+                <a href="#" onclick="showView('home')">Início</a>
+                <!-- Link Externo Blindado -->
+                <a href="https://mpt.mp.br/pgt/servicos/servico-denuncie" target="_blank" rel="noopener noreferrer">Denunciar</a>
+                <a href="#" onclick="showView('quiz')">Auto Avaliação</a>
             </div>
         </nav>
 
-        <div class="container">
-            <main id="home" class="view active">
-                <section class="hero">
+        <main class="container">
+            <!-- Home View -->
+            <section id="home" class="view active">
+                <header class="hero">
                     <h1>Justiça, Ética e Respeito.</h1>
                     <p>Combate ao Assédio Moral no Meio Corporativo.</p>
-                </section>
+                </header>
+                
                 <div class="grid">
+                    <!-- Card 1: Interno -->
                     <div class="card card-glow">
                         <div class="icon-box"><i data-lucide="gavel"></i></div>
-                        <h3>Denúncia Segura</h3>
-                        <p>Relate de forma 100% anônima e sigilosa. Protegemos você.</p>
+                        <h3>Relato Interno</h3>
+                        <p>Registre sua ocorrência em nosso sistema para análise sigilosa.</p>
                         <button class="btn btn-accent" onclick="showView('denuncia')">Abrir Relato</button>
                     </div>
+
+                    <!-- Card 2: Quiz -->
                     <div class="card card-glow">
                         <div class="icon-box"><i data-lucide="clipboard-check"></i></div>
                         <h3>Auto Avaliação</h3>
-                        <p>Identifique se você está vivenciando uma situação de abuso.</p>
+                        <p>Identifique se você está vivenciando uma situação de abuso ou assédio.</p>
                         <button class="btn btn-accent" onclick="showView('quiz')">Iniciar Quiz</button>
                     </div>
+
+                    <!-- Card 3: Externo -->
                     <div class="card card-glow">
                         <div class="icon-box"><i data-lucide="landmark"></i></div>
                         <h3>Órgãos Oficiais</h3>
-                        <p>Acesse o suporte direto do MPT e Direitos Humanos.</p>
-                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank')">Canais Externos</button>
+                        <p>Acesse o portal do Ministério Público do Trabalho (MPT).</p>
+                        <button class="btn btn-accent" onclick="window.open('https://mpt.mp.br/', '_blank', 'noopener,noreferrer')">Canais Externos</button>
                     </div>
                 </div>
-            </main>
+            </section>
 
+            <!-- Denúncia View -->
             <section id="denuncia" class="view">
                 <div class="card form-container">
-                    <h2>Relato Sigiloso</h2>
-                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos detalhadamente..."></textarea>
-                    <button class="btn btn-main" onclick="salvarDenuncia()" style="margin-top:15px;">Enviar Sigilosamente</button>
+                    <h2>Relato Sigiloso Interno</h2>
+                    <p style="font-size: 0.9em; margin-bottom: 15px; color: var(--accent-muted);">Suas informações são processadas de forma anônima.</p>
+                    <textarea id="relatoTexto" rows="6" placeholder="Descreva os fatos, datas e envolvidos detalhadamente..."></textarea>
+                    <button class="btn btn-main" onclick="salvarDenuncia()" style="margin-top:15px; width: 100%;">Enviar para o Comitê de Ética</button>
                 </div>
-                <h3 style="margin-top:40px; color:var(--accent-muted); font-family:'Cinzel';">Relatos Registrados</h3>
+                <h3 style="margin-top:40px; color:var(--accent-muted); font-family:'Cinzel';">Histórico de Relatos</h3>
                 <div id="listaDenuncias" class="grid" style="margin-top: 20px;"></div>
             </section>
 
+            <!-- Quiz View -->
             <section id="quiz" class="view">
                 <div class="card form-container">
                     <div id="quiz-content">
-                        <h2 id="quiz-question" style="margin-bottom:20px;">Carregando...</h2>
-                        <div id="quiz-options" style="display:flex; gap:10px; justify-content:center;"></div>
+                        <h2 id="quiz-question" style="margin-bottom:20px;">Carregando questionário...</h2>
+                        <div id="quiz-options" style="display:flex; gap:10px; justify-content:center; flex-wrap: wrap;"></div>
                     </div>
                     <div id="quiz-result" style="display: none; text-align: center;">
-                        <h2>Resultado</h2>
-                        <p id="result-text" style="margin:20px 0;"></p>
-                        <button class="btn btn-main" onclick="resetQuiz()">Reiniciar Quiz</button>
+                        <h2>Resultado da Análise</h2>
+                        <p id="result-text" style="margin:20px 0; line-height: 1.6;"></p>
+                        <button class="btn btn-main" onclick="resetQuiz()">Reiniciar Avaliação</button>
                     </div>
                 </div>
             </section>
-        </div>
+        </main>
+
         <div class="sticky-footer-spacer"></div>
     </div>
 
     <footer class="final-footer">
         <div class="footer-logo">CODE OF RESPECT</div>
-        <p>© 2026 - Proteção e Sigilo Absoluto.</p>
+        <p>© 2026 - Proteção, Ética e Sigilo Absoluto.</p>
     </footer>
 
+    <!-- Scripts de Inicialização -->
     <script src="script.js"></script>
+    <script>
+        // Inicializa os ícones Lucide após o carregamento
+        lucide.createIcons();
+    </script>
 </body>
 </html>
