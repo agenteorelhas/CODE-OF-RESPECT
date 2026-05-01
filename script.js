@@ -56,7 +56,7 @@ async function enviarChat() {
         const RENDER_API_URL = "https://code-of-respect.onrender.com/chat"; 
         
         // MODIFICAÇÃO: Uso da variável RENDER_API_URL e tratamento de erro de resposta
-        const response = await fetch(RENDER_API_URL, {
+        const response = await fetch("https://code-of-respect.onrender.com/chat", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: userText })
