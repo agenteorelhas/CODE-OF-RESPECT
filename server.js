@@ -19,9 +19,9 @@ app.post('/chat', async (req, res) => {
             throw new Error("Chave de API não configurada no servidor.");
         }
 
-        // 1. CORREÇÃO DA URL: Alterado para a versão estável /v1/
-        // 2. CORREÇÃO DO MODELO: Removido o "-latest" para garantir compatibilidade e evitar o erro "not found"
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        // --- ALTERAÇÃO SOLICITADA NA URL ---
+        // Mudança de v1 para v1beta para garantir o suporte ao modelo gemini-1.5-flash
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(url, {
             method: 'POST',
@@ -52,7 +52,6 @@ app.post('/chat', async (req, res) => {
 
         res.json({ text: aiText });
 
-    // AJUSTE CRÍTICO: Adicionada a chave "}" que estava faltando para fechar o bloco "try"
     } catch (error) {
         console.error("ERRO TESTE:", error.message);
         res.status(500).json({ text: "ERROR: " + error.message });
