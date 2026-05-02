@@ -52,10 +52,6 @@ async function enviarChat() {
     appendMessage('Processando...', 'bot-msg', loadingId);
 
     try {
-        // Definição da URL centralizada para evitar erros de digitação
-        const RENDER_API_URL = "https://code-of-respect.onrender.com/chat"; 
-        
-        // MODIFICAÇÃO: Uso da variável RENDER_API_URL e tratamento de erro de resposta
         const response = await fetch("https://code-of-respect.onrender.com/chat", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -66,7 +62,6 @@ async function enviarChat() {
         const loadingElement = document.getElementById(loadingId);
 
         if (!response.ok) {
-            // Se o servidor retornar erro (ex: 500), joga para o catch com a mensagem da IA ou padrão
             throw new Error(data.text || "Erro no servidor");
         }
         
@@ -80,7 +75,6 @@ async function enviarChat() {
         console.error("Erro na requisição:", error);
         const loadingElement = document.getElementById(loadingId);
         if (loadingElement) {
-            // Exibe o erro real para facilitar o seu debug
             loadingElement.innerText = "Erro: " + error.message;
         }
     }
@@ -118,13 +112,28 @@ function renderizarDenuncias() {
         </div>`).join('');
 }
 
-// Lógica do Quiz
-const questions = ["Críticas humilhantes?", "Tarefas boicotadas?", "Agressões verbais?", "Danos à saúde mental?"];
-let currentQ = 0, score = 0;
+// --- MODIFICAÇÃO EXCLUSIVA: LÓGICA DO QUIZ ATUALIZADA ---
+const questions = [
+    "1. Você já recebeu críticas sobre o seu trabalho de forma gritante, agressiva ou na frente de outros colegas?",
+    "2. Você sente que recebe tarefas impossíveis de cumprir ou que é deixado(a) 'sem nada para fazer' propositalmente?",
+    "3. Algum superior ou colega já fez piadas recorrentes sobre suas características pessoais (físico, orientação, religião)?",
+    "4. Você é excluído(a) de reuniões ou comunicações essenciais para o seu dia a dia?",
+    "5. Alguém já insistiu em convites para sair, mesmo depois de você ter dito 'não' ou ignorado?",
+    "6. Você já recebeu fotos, vídeos ou mensagens de cunho sexual sem consentimento?",
+    "7. Alguém já tocou em você (costas, mãos, cabelo) de forma a deixar você desconfortável ou 'travado(a)'?",
+    "8. Já te ofereceram benefícios (promoção, notas, presentes) em troca de algum 'favor' ou contato físico?",
+    "9. Você sente medo, ansiedade ou vontade de chorar só de pensar em encontrar essa pessoa específica?",
+    "10. Você já mudou sua rotina, caminho ou roupas para evitar comentários ou olhares de uma pessoa específica?"
+];
+
+let currentQ = 0;
+let scoreFrequenciaAlta = 0;
+let scoreOcorrenciaUnica = 0;
 
 function startQuiz() { 
     currentQ = 0; 
-    score = 0; 
+    scoreFrequenciaAlta = 0;
+    scoreOcorrenciaUnica = 0;
     document.getElementById('quiz-result').style.display = 'none'; 
     document.getElementById('quiz-content').style.display = 'block'; 
     nextQuestion(); 
@@ -134,18 +143,29 @@ function nextQuestion() {
     if (currentQ < questions.length) {
         document.getElementById('quiz-question').innerText = questions[currentQ];
         document.getElementById('quiz-options').innerHTML = `
-            <button class="btn btn-main" onclick="handleQuiz(true)">Sim</button>
-            <button class="btn btn-accent" onclick="handleQuiz(false)">Não</button>
+            <button class="btn btn-main" onclick="handleQuiz(2)">Acontece sempre</button>
+            <button class="btn btn-accent" onclick="handleQuiz(1)">Aconteceu uma vez</button>
+            <button class="btn btn-accent" onclick="handleQuiz(0)">Nunca</button>
         `;
     } else {
         document.getElementById('quiz-content').style.display = 'none';
         document.getElementById('quiz-result').style.display = 'block';
-        document.getElementById('result-text').innerText = score >= 3 ? "Alerta de assédio." : "Continue monitorando.";
+        
+        let resultText = "";
+        if (scoreFrequenciaAlta > 0) {
+            resultText = "Isso que você descreveu não é normal e a culpa não é sua. Os sinais indicam uma situação crítica de abuso. Procure canais oficiais como o Disque 180 ou 100.";
+        } else if (scoreOcorrenciaUnica >= 2) {
+            resultText = "Você relatou episódios que podem configurar assédio. O ambiente de trabalho deve ser pautado pelo respeito. Monitore essas situações e busque apoio.";
+        } else {
+            resultText = "Continue monitorando. Caso sinta que sua integridade ou saúde mental está em risco, não hesite em procurar ajuda.";
+        }
+        document.getElementById('result-text').innerText = resultText;
     }
 }
 
-function handleQuiz(isYes) { 
-    if (isYes) score++; 
+function handleQuiz(valor) { 
+    if (valor === 2) scoreFrequenciaAlta++;
+    if (valor === 1) scoreOcorrenciaUnica++;
     currentQ++; 
     nextQuestion(); 
 }
