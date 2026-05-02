@@ -1,31 +1,3 @@
-anonimo42244
-anonimo42244
-Sharing their screen
-
-anonimo42244 — 4:55 PM
-# ☕ Espresso SQL Admin & Cafeteria SaaS
-
-Projeto completo de **modelagem, análise e gestão de dados de uma cafeteria**, evoluído para uma **plataforma SaaS Full-Stack com autenticação, API REST e dashboard moderno**.
-
----
-
-message.txt
-5 KB
-Argo9 — 5:02 PM
-🛡️ Code of Respect — Plataforma de Conscientização Corporativa
-
-Sistema web voltado à identificação, orientação e denúncia de assédio moral no ambiente de trabalho, com foco em anonimato, ética e acesso a órgãos oficiais.
-
-🚀 Visão Geral
-
-message.txt
-3 KB
-texto:  
-Argo9
-kelven0
- 
- 
- 
 🛡️ Code of Respect — Plataforma de Conscientização Corporativa
 
 Sistema web voltado à identificação, orientação e denúncia de assédio moral no ambiente de trabalho, com foco em anonimato, ética e acesso a órgãos oficiais.
@@ -109,5 +81,3 @@ Contribuir para ambientes de trabalho mais éticos, seguros e respeitosos, auxil
 🌐 Acesso ao Projeto
 
 🔗 https://agenteorelhas.github.io/CODE-OF-RESPECT/
-message.txt
-3 KB
